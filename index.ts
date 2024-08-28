@@ -128,13 +128,13 @@
 
 //////
 
-// function someFunction(s: string): never{//yani bu never shunaqa typeki bu never yozilgan funksiya hech qachon tamomlanmasa yani doim ishleydigan funksiyaga bu type beriladi aslida hamma funksiyalar dasturchini yozishiga qarab biror vazifani bajarib ishlashdan to'htaydi lekin bu someFunctin funksiyasi esa hato qaytadigan funksiya bo'lgani uchun never typega o'rab olinishi dasturchilar uchun tushunarli bo'ladi
+// function someFunction(s: string): never{//yani bu never shunaqa typeki bu never yozilgan funksiya hech qachon tamomlanmasa yani doim ishleydigan funksiyaga bu type beriladi aslida hamma funksiyalar dasturchini yozishiga qarab biror vazifani bajarib ishlashdan to'htaydi lekin bu someFunctin funksiyasi esa hato qaytadigan funksiya bo'lgani uchun never typega o'rab olinishi dasturchilar uchun tushunarli bo'ladi//yani funksiya tugallanmaydigan bo'lsa
 //     throw new  Error (s)
 // }
 
 //////
 
-//signatuer function
+//signatuer function avvaldan elon qilinib qo'yiladi yani shablon bo'ladi va bu hsablondan chiqib ketmagan holatda ustiga funksiya berish mumkun yani yangi funksiya faqat typelari bir hil bo'lishi kerak
 // let c: (x: number, y: string) => string
 // c = function(a: number, b: number): number{//hato chunki signature funksiyada x ni type number y ni type string va funksita string qaytarsin deyildi shu uchun c nomli funksiyaga qiymat berilayotganda birinchi parametriga number ikkinchisiga string berish kerak bu holatda esa iikala parametrgaham number berildi va c funksiyaga ishlov berilayotganda number type berildi ona funksiyada esa funksiya string qaytarsin deyilgandi shu sabablar bilan bu kod hato qaytaradi
 // return a + b
@@ -143,11 +143,11 @@
 // d = function(a: number, b: string): string{//d ona default typelar berilgan funksiyani o'zgartirish yani qiymatlar berish
 // return `${b}: ${a}`
 // }
-// console.log(d(2, " Nur"));//yani Nur: 2 sabai string typega ega b parametri returnda birinchi chaqirilgan shu sabab logda yozilgan joyiga qarab ishladi
+// console.log(d(2, " Nur"));//yani Nur: 2 sababi string typega ega b parametri returnda birinchi chaqirilgan shu sabab logda yozilgan joyiga qarab ishladi
 
 //////
 
-//function overload
+//function overload har bir parametrga alohida typelar berish mumkun bo'lgan funksiya
 // function overloadFunction(x: any, y: any): any {
 //     //bu holatda x,  y parametrlarga any type berildi endi bu funksiya nima qaytarishini aniq bilmaganimiz uchun funksiyani typeniham any type qilish kerak
 //     if (typeof x === "number" && typeof y === "number") {
@@ -157,7 +157,7 @@
 //         return `${x} ${y}`;
 //     }
 // }
-// console.log(overloadFunction(1, 2));//javob 3 chiqadi chunki hamma narsa any bo'lgani uchun parametrdagi 1, 2 ni number qilib qo'shib beradi/////////////////////////////////
+// console.log(overloadFunction(1, 2));//javob 3 chiqadi chunki hamma narsa any bo'lgani uchun parametrdagi 1, 2 ni number qilib qo'shib beradi//////////////////////////////////////////////////////////////
 // function overloadFunction(x: any, y: any): any {
 //     //bu holatda x,  y parametrlarga any type berildi endi bu funksiya nima qaytarishini aniq bilmaganimiz uchun funksiyani typeniham any type qilish kerak
 //     if (typeof x === "number" && typeof y === "number") {
@@ -167,7 +167,108 @@
 //         return `${x} ${y}`;
 //     }
 // }
-// console.log(overloadFunction("1 ,", "2-string"));//javob 3 chiqadi chunki hamma narsa any bo'lgani uchun parametrdagi 1, 2 ni number qilib qo'shib beradi
+// console.log(overloadFunction("1 ,", "2-string"));//javob javob 1 , 2-string chiqadi chunki hamma narsa any bo'lgani uchun parametrdagi 1, 2 ni yani x, y ni string qilib beradi///////////////////////////////////////////////////////////////////////////////////////////////
+// function overloadFunction(x: number, y: number): number
+// function overloadFunction(x: string, y: number): string
+// function overloadFunction(x: any, y: any): any {
+//     if (typeof x === "number" && typeof y === "number") {
+//         return x + y;
+//     } else {
+//         return `${x} ${y}`;
+//     }
+// }
+// console.log(overloadFunction(1, 3));//javobi 4 //endi padsakazkadaham 2 ta paramerlar chiqepti endi birinchi parametr 1 ham ikkinchi parametr 3 ham bu holatda number  yani overloadFunction ona funksiyani yuqorida yozilgan number va string qaytradigan bola funksiyalari qiymatlari bilan chiqepti yani bu ona function overloadFunction(x: any, y: any): any funksiyasi huddi bo'sh funksiyaday bu funksiyani chaqirib endi bu anylargan hohlagan typelarni bersa bo'ladi yani huddi this contexga yani js va react class componetlardagi this contexga o'hsharkan yani this contex objectni bo'sh qiymati yani hohlagan qiymatni bersa bo'ladigan bo'sh qiymati bo'lardi bu yerdaham overloadFunction funksiyani any typlariham huddiki bo'sh yani any typelar berilgan x va y bo'sh o'zgaruvchi va bu bo'sh x y ;arni chaqirib hohlagan type berib ishlatishxam mumkun ekan  (lekin nima uchun yuqoriga yozildi??????? chunki bu this contex kabi ishlaydi shu uchunham overloadFunction function tepaga yozilganda hato bermadi pastga yozilganda esa hato berdi )
+// console.log(overloadFunction("Javob endi 1 chi parametrda string 2 chi parametrda number >>", 3));//yani contex thisga o'hshagan kod bo'lgani uchun endi bu overloadFunction funksiyani qayta qayta chaqirib qiymatlarini number yoki string qilib chaqirib ishlatish mumkun
 
 //////
 
+// let a: any = 10; //hamma narsa bo'lishi mumkun bo'lgan any = 10
+// let b: number = a; // b o'zgaruvchi yaratib uni typesini number qilib bu b o'zgaruvchiga a o'zgaruvchini chaqirvoldik///bu hatomas lekin tafsiya qilinmaydi yani any typeni to'g'ridan to'g'ri boshqa typega o'girish yahshimas yani tsda  boshqa boshqa typelarni to'gridan to'gri o'zgartirish kerakmas
+
+//////
+////unknown
+// let a: unknown = 20
+// let b: number = a//bu holat esa hato// TypeScript-da unkown type oldindan malum bo'lmagan o'zgaruvchilar uchun ishlatiladi . U foydalanishdan oldin aniq turdagi tekshiruvlar yoki tasdiqlarni talab qilish, o'zboshimchalik bilan operatsiyalarni oldini olish va "har qanday" tuypega nisbatan xavfsizroq ishlov berishni targ'ib qilish orqali type xavfsizligini ta'minlaydi.//bu usuldan foydalanish kerakmas!!!!!!
+
+//////
+
+// let c: unknown = 20;
+// let e: number = <number>c; //1-chi Usul//bu holatda unkowndan foydalanish yani c o'zgaruvchi ochib typini unkown qilib number type qildik yani 20 va e o'zgaruvchi ochib e o'zgaruvchiga <number>ni chaqirib c o'zgaruvchiga teng qildik yani bu holatda  c unkown o'zgaruvchiga e o'zgaruvchida number type berib qo'yildi endi e o'zgaruvchida c o'zgaruvchini 20 qiymati numberga aylandi
+// let f: number = c as number; //2-chi Usul
+// console.log(e); //1- chi usul
+// console.log(f); //2-chi usul
+
+//////
+
+// let c: unknown = 20.2132;
+// let e: number = <number>c;
+// (c as number).toFixed(2)//1-chi USIUL //yuqoridagi holatda numberni metodli aftamatik chiqmagan edi bu holatda chiqdi yani 20.2132 qiymatga ega c unkown o'zgaruvchi e o'zgaruvchida number  type berilib keyin dumaloq qavus ichida c ni huddiki number deb chaqirilsa keyin aftamatik tarzda number metodlari chiqar ekan/
+// console.log(e);/////////////////////////////////////////////////////
+// let c: unknown = 20.2132;
+// let e: number = <number>c;
+// (<number>c).toString() //2-chi USIUL //yuqoridagi holatda numberni metodli aftamatik chiqmagan edi bu holatda chiqdi yani 20.2132 qiymatga ega c unkown o'zgaruvchi e o'zgaruvchida number  type berilib keyin dumaloq qavus ichida c ni huddiki number deb chaqirilsa keyin aftamatik tarzda number metodlari chiqar ekan
+// console.log(e);
+
+//////
+
+////union type
+// let h: number | string //union type bu holatda h o'zgaruvchi number |yoki string bo'lsin lekin boshqa hech narsa bo'masin
+// h = "string"// h o'zgaruvchini ikkita type bor number va string bu holatda esa string qilib ishlatildi
+// console.log(h);//string////////////////////////////////////////////////////////////////////////////
+// let h: number | string //union type bu holatda h o'zgaruvchi number |yoki string bo'lsin lekin boshqa hech narsa bo'masin
+// h = 11// h o'zgaruvchini ikkita type bor number va string bu holatda esa number qilib ishlatildi
+// console.log(h);//number////////////////////////////////////////////////////////
+// let h: number | string = 10 //union type bu holatda h o'zgaruvchi number |yoki string bo'lsin lekin boshqa hech narsa bo'masin bu holatda default holatda 10 number
+// console.log(h);//number////////////////////////////////////////////////////////
+// let h: number | string | boolean; //union type bu holatda h o'zgaruvchi number |yoki string bo'lsin lekin boshqa hech narsa bo'masin
+// h = true;
+// console.log(h); //true/////////////////////////////////////////////
+// let h: number | string
+// h = 12
+// h = "string"
+// console.log(h);//ohirgi stringni oladi numbernimas???????
+
+//////
+////Literal type
+// let s: "sm" | "md" | "lg";
+// s = "sm";
+// s = "md";
+// s = "lg";//endi bu s o'zgaruvchi default holatida berilgan shu 3 ta string typedan  boshqasini qabul qilmaydi masalan "sds"buham string lekin buniham qabul qilmaydi faqat s ga berilgan default holatdagi stringlarni qabul qiladi
+// console.log(s); //ohirgi "lg"ni oladi?????????????????????????
+
+//////
+////Aliases Type
+// type Sizes = "SM" | "MD" | "LG";//typni jamlab olish bu Sizes endi sm yoki md yoki lg bo'laoladi yani type kalit so'zi bilan typlarni qo'lda hohlagandan yozish mumkun
+// let s2:Sizes = "SM" //endi s2 o'zgaruvchida Sisez TYPNI QIYMATLARI BOR
+// s2 = "MD"
+// s2 = "LG"
+// console.log(s2);//ohirgi "LG" ni oladi????/////////////////////////////////////////////////////////
+// type Sizes = "SM" | "MD" | "LG";
+// let s2: Sizes = "SM";
+// s2 = "MD";
+// let s3: Sizes = "LG"; //type kalit so'zi bilan ishlaganda bu typedagi Sizes huddi o'zgaruvchiday endi bu Sizes type o'zgaruvchini boshqa o'zgaruvchigaham chaqirib ichidagi qiymatlarini ishlatish mumkun bu holatda type Sizesni ikkita o'zgaruvchiga chaqirib ishlatdik s2 va s3 o'zgaruvchilarda. faqat shu 3 ta qiymatni qabul qiladi boshqa har qanday qiymat qo'shilsa hato chiqadi padsakazkadaham faqat shu uchta qiymat bor
+// console.log(s2); // "MD" ni qaytaradi
+// console.log(s3); // "LG" ni qaytaradi
+
+//https://medium.com/@SahilSharma_SoftwareDeveloper/type-in-typescript-7f14d30e30a3#:~:text=In%20TypeScript%2C%20the%20type%20keyword%20is%20used%20for%20a%20variety,types%2C%20and%20define%20complex%20structures.
+// type Printable = { print: () => void };
+// type Loggable = { log: () => void };
+// type Logger = Printable & Loggable;
+// const myLogger: Logger = {
+//   print: () => console.log("Printing..."),
+//   log: () => console.log("Logging..."),
+// };
+// console.log(myLogger);
+//Xulosa qilib aytganda, TypeScript-dagi type kalit so'zi turlarni yaratish va manipulyatsiya qilish uchun ko'p qirrali vosita bo'lib, tilni yanada ifodali qiladi va statik tahlil va asboblarni yaxshi qo'llab-quvvatlaydi.
+//https://medium.com/@SahilSharma_SoftwareDeveloper/type-in-typescript-7f14d30e30a3#:~:text=In%20TypeScript%2C%20the%20type%20keyword%20is%20used%20for%20a%20variety,types%2C%20and%20define%20complex%20structures.
+
+//////
+
+type Sizes = "SM" | "MD" | "LG" | boolean;//shu typelardan boshqasini pastda chaqirish mumkun emas hato chiqaradi endi bu Sizes faqat o'ziga biriktirilgan typelar bilan ishlaydi
+let s2: Sizes = "SM";//s2 o'zgaruvchiga Sizes typydan "SM" default holatda chaqirildi
+s2 = "MD";
+let s3: Sizes = false; 
+s3 = "LG"//elon qilindi
+s3 = false//s3 da chaqirilgan "LG" false qilindi yani otkaz qilindi
+console.log(s2); // "MD" ni qaytaradi
+console.log(s3); // "LG" ni qaytaradi
