@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "sourceMap": true,//bu "sourceMap": true, tru bo'lsa va ts configni eng yuqorisida bo'lsa jsga compilats abo'ladigan filelar to'g'ridan to'g'ri adresi ko'rsatilib turadi
+    "sourceMap": true,//bu "sourceMap": true, tru bo'lsa va ts configni eng yuqorisida bo'lsa jsga compilatsa bo'ladigan filelar to'g'ridan to'g'ri adresi ko'rsatilib turadi yani qaysi fileda qaysi qatorda
    
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
