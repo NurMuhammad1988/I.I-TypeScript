@@ -264,11 +264,67 @@
 
 //////
 
-type Sizes = "SM" | "MD" | "LG" | boolean;//shu typelardan boshqasini pastda chaqirish mumkun emas hato chiqaradi endi bu Sizes faqat o'ziga biriktirilgan typelar bilan ishlaydi
-let s2: Sizes = "SM";//s2 o'zgaruvchiga Sizes typydan "SM" default holatda chaqirildi
-s2 = "MD";
-let s3: Sizes = false; 
-s3 = "LG"//elon qilindi
-s3 = false//s3 da chaqirilgan "LG" false qilindi yani otkaz qilindi
-console.log(s2); // "MD" ni qaytaradi
-console.log(s3); // "LG" ni qaytaradi
+// type Sizes = "SM" | "MD" | "LG" | boolean; //shu typelardan boshqasini pastda chaqirish mumkun emas hato chiqaradi endi bu Sizes faqat o'ziga biriktirilgan typelar bilan ishlaydi
+// let s2: Sizes = "SM"; //s2 o'zgaruvchiga Sizes typydan "SM" default holatda chaqirildi
+// s2 = "MD";
+// let s3: Sizes = false;
+// s3 = "LG"; //elon qilindi
+// s3 = false; //s3 da chaqirilgan "LG" false qilindi yani otkaz qilindi
+// console.log(s2); // "MD" ni qaytaradi
+// console.log(s3); // "LG" ni qaytaradi
+
+//////
+
+// type OBJ = { name: string } | { age: number };// | yoki operatori bilan ishlatish//type kalit so'zi bilan objectlarda ishlash // bu OBJ nomli typeni ikkita qiymati bor birinchisi name string typega ega ikkinchi age number typega ega
+// let obj: OBJ;//OBJ nomli typeni obj nomli o'zharuvchiga teng qilib qo'yildi
+// obj = { name: "Nur", age: 35 };//obj o'zgaruvchiga chaqirilgan OBJ typeni qiymatlari shunday chaqiriladi OBJni qiymatlarini hohlasa ikklasini hohlasa bittasiniham alohida foydalanish mumkun
+// obj = {name: "Nur-2"}//hatomas//chunki bu | yani yoki operatori yani yoki nameni va yoki ageniham deyilgan yani hohlaganini ishlatish mumkun yoki sabab!!!
+// console.log(obj);//Nur-2 sreingini oladi
+
+//////
+
+// type OBJ = { name: string } & { age: number };// & yani va operatori bilan ishlatish
+// let obj: OBJ;
+// obj = {name: "Nur", age: 35}
+// obj = {name: "Nur-2"}//bu hato chunki bu yokimas & va operatori yani obj chaqirilganda ichidagi type OBJni ikkala qiymatiham chaqirilishi majburiy bo'lmas hato chunki va & operatorida shunday sababi name va age ishlatilishi shart deyilgan yoki (|) operatori bilan va (&) operatorini farqi shunda va operatori qattiqroq qoidalar bilan ishlaydi
+// obj = { age: 35}//hato
+
+//////
+
+//                          age endi number yoki undefined
+// type OBJ = { name: string; age?: number };//yani bu ? hohlasa age: number type ishlatilsin hohlanmasa ishlatilmasin yani ageni ishlatish qattiymas ihtiyoriy
+// let obj: OBJ = { name: "Nur" };
+// obj = { name: "Nur-2", age: 35 };//log shuni oladi chunki kod o'qilish tartibi bo'yicha
+// console.log(obj);
+
+//////
+
+// type OBJ = { name: string; age?: number };//yani bu ? hohlasa age: number type ishlatilsin hohlanmasa ishlatilmasin yani ageni ishlatish qattiymas ihtiyoriy lekin name: stringni ishlatish majburiy sababi ?=ihtiyor yo'q
+// let obj: OBJ = { name: "Nur" };
+// obj = { name: "Nur-2", age: 35 };//log shuni oladi chunki kod o'qilish tartibi bo'yicha
+// obj = { age: 35 };//hato chunki chunki name: string majburiy yani OBJda ?=majburiymas ishlatilmagan yani majubiriy
+
+//////
+
+// type OBJ = { name: string; age?: number }; //in operatori
+// let obj: OBJ = { name: "Nur" }; //default holati buni default holatisizham yozish mumkun>>>>let obj: OBJ
+// obj = { name: "Nur", age: 35 };
+// if ("age" in obj) {
+//     //OBJda ihtiyoriy qilib qo'yilgan qiymatni OBJ objga chaqirilgandan keyin objni ichida bor yo'qligini tekshirish yani in operatori bilan in operatorida tekshirilishi kerak bo'lgan qiymat stringda yozilishi kerak chunki shu nomga yani yozuvga qarab izlaydi yani ishlaydi bu holatda "age" yani umumiy age yozuvi objni ichida bo'lsa yani true bo'lsa "age mavjud" textini chiqar agar mavjud bo'lmasa yani false bo'lasa "mavjudmas" textini chiqar bu holatda "age mavjud" chiqadi chunki obj objectga qiymat berilayotganda name ham age ham bor
+//     console.log("age mavjud");
+// } else {
+//     console.log("mavjudmas");
+// }
+
+//////
+
+// type OBJ = { name: string; age?: number }; //in operatori
+// let obj: OBJ = { name: "Nur" };
+// obj = { name: "Nur" };
+// if ("age" in obj) {
+//     console.log("age mavjud");
+// } else {
+//     console.log("mavjudmas");//logda bu ishlaydi chunki objda faqat name bor age yo'q if da esa in bilan "age" ni bor yo'qligi tekshirildi shunda if qareydi age yo'q va elseni qiymatini yani falseni qaytaradi
+// }
+
+
