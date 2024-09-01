@@ -530,7 +530,7 @@
 //     info(value: number): string {
 //         return `Nomi ${this._name} yoshi ${this._age + value} da `;
 //     }
-//     get name(): string {
+//     get name(): string | number {
 //         //get va set metodi classni metodi
 //         //yani getda name nomli metod ochildi bu name Personga tegishli name qilinib Personni name qiymati ushlab olindi
 //         //bu name Person classni constructoridagi name, constructordagi name esa Person classdagi string typega ega  _name bilan tenglashtirilgan yani bu get dagi nameham string bo'lishi shart bo'lmasa hato chiqadi
@@ -556,7 +556,7 @@
 // const Nur: Person = new Person("Nur", 35);
 // console.log(Nur);
 // Nur.age = 55; //to'g'ri
-// // Nur.age = -55; //error zo'r ishlarkan bu error global error qaytararkan yani logda global error
+// Nur.age = -55; //error zo'r ishlarkan bu error global error qaytararkan yani logda global error//shu qatorda hato elon qilingandan keyin shu qatordan pastdagi ishlab turgan kodlarham ishlamey qoldi yani hato bo'lgan joydan boshlab ts kodlarni ishlatmey qo'yarkan yani tsni  mantig'i shu hato bo'lmasligi kerak yoki to'liq ishlaydigan hatosiz dastur yoki hato qatorigacha bo'lgan hatosiz dastur lekin hatomas 
 // console.log(Nur.age);
 // //
 // if (Nur instanceof Person) {
@@ -565,7 +565,7 @@
 // } else {
 //     console.log("Bu Nur Object Person classiga tegishli emas!!!");
 // }
-////yuqoridagi kodni commentsiz holati
+//////////////////////////////////////////////////////////////////yuqoridagi kodni commentsiz holati
 // class Person {
 //     _name: string;
 //     _age: number;
