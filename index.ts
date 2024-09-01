@@ -319,12 +319,253 @@
 //////
 
 // type OBJ = { name: string; age?: number }; //in operatori
-// let obj: OBJ = { name: "Nur" };
-// obj = { name: "Nur" };
+// let obj: OBJ
+// obj = { name: "Nur" };//age ? saba shartmas qilingani uchun age chaqirilmasaham hato yo'q
 // if ("age" in obj) {
 //     console.log("age mavjud");
 // } else {
 //     console.log("mavjudmas");//logda bu ishlaydi chunki objda faqat name bor age yo'q if da esa in bilan "age" ni bor yo'qligi tekshirildi shunda if qareydi age yo'q va elseni qiymatini yani falseni qaytaradi
 // }
 
+//////
+////arrays
+// let a = [];//bu holatda bu array default holatda any yani har qanday typega ega bo'lishiu mumkun bo'lgan massiv
+// a = [12, "sdf", true, undefined, {}]//bunga hohlagancha qiymat berish mumkun chunku bu any masiv anyniham ts default holatda berdi///////////////////////////////////////////////////////
+// let b = [1,2,3,4]//bu array default holatda number yani ts array ichidagi typega qarab default holat elon qiladi yani bu number deb endi bu b massivga numberdan boshqa qiymat berib bo'lmaydi yanu bu faqat number let b:number =[1,2,3,4,5,]//bu to'gri yozilishi yani ts o'zi bunday hollarda aftamatik tarzda type bersaham aslida typeni shunday yozish kerak
+// b = ["dsasa"]//bu hato chunki b massiv number typega aftamatik ega//////////////////////////////////////
+// let b: number[]= [1,2,3,4]
+// b = [12, 34]
+// b = ["sddas", true]// hato chunki b o'zgaruvchiga san number typega oid massivsan deyilgan/////////////////////////////////////////////////////////////////////////////
+// let c: Array<number> = [1, 2]; //yani yuqoridagi arrayni yozilishini boshqacha ko'rinishi Array global object chaqirilib typega numbersan deyildi endi numberdan boshqa narsani qabul qilmaydi
+// c = [3, 4];///////////////////////////////////////////////////////////////////////////
+// let d: (number | string)[] = [12, "dsds", 123]; //number yoki string bo'lsin va bularni arrayda qabul qilsin[] yani ikkalasiham bo'lishi shart emas bu yoki yoki unisi bo'lsin yoki buni farqi yo'q qavus birlashtiradi///////////////////////////////////////////
+// let e: Array<boolean | number | {} | boolean> = [true, 12323, false, 123];//arrayga type berishni yana bir uslubi////////////////////////////////////////////////////////////////////////////////////
 
+///////
+//tuples
+// let f:[number, string]//bu holatda f o'zgaruvchiga array ichida keladigan yoki kutilgan malumotni qanday tartibda kelishi qattiy aytib qo'yilepti yani f o'zgaruvchi massiv va massivda 0 chi elementida number bo'lsin 1 chi elementida string bo'lsin bu qattiy buyruq agar info bundan boshqacha uslubda kelsa ts buni hato ko'rsatadi yani tuples kartej shu yahi tartib bilan qoida bo'yicha qabul qiladi
+// [12, 'name']//tuples endi shu tartibdagina malumot qabul qiladi
+// f = [ 'name', 12]//hato chunki f o'zgaruvchi tuples uslibida birinchi number keyin string qabul qiladi bu tartibni buzish mumkun emas va
+// f = [12]//buham hato chunki f da qattiy qilib birinchi number keyin string kelsin yani ikkalasiham aniq tiniq kelsin aks holda hato
+// f = [12 ,'name' ]//bu holat tuples uchun to'gri chunki tartib bo'yich yani number va string shablondan chiqib ketmagan holatda malumot to'ldirilishi kerak///////////////////////////////////////////////////////////////////////////////////
+// let f: [number, string, [], {}];
+// f = [     12, "name",   [], {}]; //tuplesda aniq qattiy tartib bo'yicha hamm atypelarni kiritish mumkum endi f qattiy holatda qattiy ketmaketlikda va hamma shu typlar kelgandagina to'g'ri bo'ladi aks holda hato chiqadi yani hammasi tartib bo'yicha kelish shart///////////////////////////////////////////////////////////
+// let f: [number, string ,[number, string],   {}];
+//  //       0,      1,    2, 2.0     2.1       3
+// f = [    12,    "name",    [12,   "str"],   {}]; //bu holatda f o'zgaruvchiga san massivsan va 0 chi elementga number qabul qilasan 1 chi elementga string qabul qilasan 2 chi elementga massiv qabul qilasan va massivni 0 chi elementiga number qabul qilsan massivni 1 chi elementiga string qabul qilasan 3 chi elementga object qabul qilsan deyildi endi malumotlar aynan shu tartibda ketmaketlikda kelishi shart va agar birorta malumot kelmay qolsaham bu hato bo'ladi yani bu o'zgaruvchi ishlasa 100% ishleydi bo'masa umuman ishlameydi//////////////////////////////////////////////////////////////////////////////////
+
+//////
+////Enum - qayta hissoblash//sanash
+// enum Gender{
+//     Male,//0
+//     Famale//1
+// }
+// console.log(Gender.Male, Gender.Famale);//0, 1
+// ///////////////////////////////////
+// enum Gender {
+//    A = 10,//default yani 10dan boshlanadi shudna A=10 b=11 bo'ladi
+//    B
+// }
+// console.log(Gender.A, Gender.B);//10, 11
+///////////////////////////////////////
+// enum Gender {
+//     A,//0
+//     B = 10,//10 = default
+//     C,//11
+//  }
+//  console.log(Gender.A, Gender.B, Gender.C);//0, 10, 11
+///////////////////////////////////////////
+// enum Gender {
+//     A,//0
+//     B,//1
+//     C = 11,//11 = default//11
+//     D,//12
+//  }
+//  console.log(Gender.A, Gender.B, Gender.C, Gender.D);
+////////////////////////////////////////////////
+// enum Gender{
+//     Male,//0
+//     Famale//1
+// }
+// console.log(Gender[Gender.Male], Gender.Famale);//Male, 1 //bu holatda Gender chaqirilib massiv ochilganda maleni string qilib qo'yadi yani Genderni tartib raqami bo'yicha Genderni qiymatini string formatda olish
+////////////////////////////////////////////////
+// enum Gender {
+//     Male, //0
+//     Famale, //1
+// }
+// console.log(Gender.Male, Gender.Famale); //0, 1 // tartib raqamlar
+// console.log(Gender[Gender.Male], Gender[Gender.Famale]); //Male, Famale //Genderni ikalla qiymatiniham string holatda qiymatini olish//yani value orqali genderni qiymatidagi keylarni olish value esa bu holatda raqami male va famele esa keyi
+///////////////////////////////////////////////////
+// enum Gender {
+//     Male,
+//     Famale,
+// }
+// console.log(Gender[1], Gender[Gender.Famale]); //Famele, Famele //bu holatda Genderni [1] chi qiymatini va Fameleni chaqirdik ikkalasiham aslida Fameli chunki [1]   Genderni 0 dan keyingi birinchi elementi  Famele esa Fameleni o'zi yani  Gender[1]holatda raqam bilan Genderni birinchi elementini keyi tartib raqam bilan olindi Gender[Gender.Famale]bu holatda esa Genderni 1 chi elementi qiymat yani key bilan  olindi
+//////////////////////////////////////////////////////
+// enum Hello {
+//     A = "Hello",
+//     B = "TypeScript",
+// }
+// console.log(Hello.A, Hello.B); //Hello, TypeScript // string typeda turganda number orqali qiymatni olib bo'lmaydi faqat qiymat orqali shu qiymatrni qiymatini olish mumkun yani Hello enumni a qiymatini ichki qiymati "Hello"
+//enumni keylariga yani Male, Famale keylariga qiymat sifatida number, symbol, string typelarini berish mumkun masalan Famale = "string", Famale = sybol, Famala = number
+/////////////////////////////////////////////////////////
+// const enum Ienum {//enumni const bilan yozish enum const bilan yozilganda tepada enum bilan yozilgan kodlar bilan bir hil ishlayveradi yani bir hil yozilavoradi lekin const bilan ishlash tafsiya qilinadi chunki js filega compilats abo'lganda faqat logdagi holat o'tadi yani js codlar kattalashib ketmaydi js codga qara!!!!
+//     A,
+//     B,
+// }
+// console.log(Ienum.A, Ienum.B);
+////////////////////////////////////////////////////////
+// const enum Ienum {
+//     A = 10,
+//     B = "Salom",
+// }
+// console.log(Ienum.A, Ienum.B);//js filedagi compilatsa bo'lgan holati>>>console.log(10 /* Ienum.A */, "Salom" /* Ienum.B */); yani qisqa yuqorisida hech narsa yo'q
+////////////////////////////////////////////////////////
+
+//////
+//classlar
+// class Person {}//classlar (constructor) yangi object yaratish uchun bu bo'sh class endi bu classni pastda new clait so'zi bilan yangi Nur o'zgaruvchiga chaqirdik shunda const Nur: Persondan nusxa oladi yani bo'sh objectni nusxalaydi va bu Nur nomli bo'sh objectga teng o'zgaruvchini new calit so'zi bilan Personga tenglab  qo'ydik shunda endi Nur o'zgaruvchida Person class bo'sh objectdan nusxalangan yangi Person nomli object bor va bu yangi objectga hohlagancha husisiyat yani qiymat berish mumkun
+// const Nur: Person = new Person()//yangi object
+// console.log(Nur);
+///////////////////////////////////////////////////////
+// class Person {
+//     _name: string = "Nur";
+//     _age: number = 35;
+// }
+// const Nur: Person = new Person();
+// const Usta: Person = new Person();
+// console.log(Nur);
+// console.log();
+//////////////////////////////////////////////////////////
+// class Person {
+//     _name: string;
+//     _age: number;
+//     constructor(name: string, age: number) {//bitta class ichida constructor faqat bir martta ishlatilishi mumkun
+//         this._name = name; //bu holatdagi _name va _age Person classni qiymatlari bu qiymatlar endi constructorni parametridagi name va agelarga teng va typelari string va number endi bu classdan nusxa object olinganda name qiymati yani 0 chi qiymati string age yani 1 chi qiymati number bo'lishi shart agar bu name va agelar chaqirilganda joyi o'zxgarsaham hato chiqadi
+//         this._age = age;
+//     }
+// } //js bilan bir hil faqat farqi constructorda qiymatlarni qanday typega oid ekanligi aytib qo'yilar ekan bo'ldi
+// const Nur: Person = new Person("Nur", 15);//bir hil hususiyatga ega objectlar faqat qiymatlari har hil hususiyatlari string va number name va age
+// const Usta: Person = new Person("Usta", 20);//bir hil hususiyatga ega objectlar faqat qiymatlari har hil hususiyatlari string va number name va age
+// const Dasturchi: Person = new Person("Dasturchi", 25);//bir hil hususiyatga ega objectlar faqat qiymatlari har hil hususiyatlari string va number name va age
+// const Seo: Person = new Person("Seo", 30);//bir hil hususiyatga ega objectlar faqat qiymatlari har hil hususiyatlari string va number name va age
+// const Nft: Person = new Person("Nft", 35);//bir hil hususiyatga ega objectlar faqat qiymatlari har hil hususiyatlari string va number name va age
+// console.log(Nur);
+// console.log(Usta);
+// console.log(Dasturchi);
+// console.log(Seo);
+// console.log(Nft);
+////////////////////////////////////////////////////////////////////
+// class Person {
+//     _name: string;//bularni tsda yozilishini sababi bu qiymatlarga type nima ekanligini aytib qo'yish uchun
+//     _age: number;//bularni tsda yozilishini sababi bu qiymatlarga type nima ekanligini aytib qo'yish uchun
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     //funksiyani ichida function metod yozish yani qo'lda metod yozish
+//     info(): string {
+//         return `Nomi ${this._name} yoshi ${this._age} da `;
+//     }
+// }
+// const Nur: Person = new Person("Nur", 35);
+// console.log(Nur.info());
+///////////////////////////////////////////////////////////////////////
+// class Person {
+//     _name: string;
+//     _age: number;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     //funksiyani ichida function metod yozish yani qo'lda metod yozish
+//     info(value: number): string {
+//         return `Nomi ${this._name} yoshi ${this._age + value} da `;//this._age + value yani _agega qo'shamiz valueni valueni type esa number endi bu valuega string qo'shib bo'meydi lekin bu number ohirida string bo'lib qaytadi chunki bu info function metodga string qaytarishi kerakligi aytilgan
+//     }
+// }
+// const Nur: Person = new Person("Nur", 35);
+// console.log(Nur.info(2));//default 35 ga 2 qo'shildi va 37 bo'ldi 2ni infoni valuesidan oldik
+////////////////////////////////////////////////////////////////////////////
+// class Person {
+//     _name: string; //bularni tsda yozilishini sababi bu qiymatlarga type nima ekanligini aytib qo'yish uchun
+//     _age: number; //bularni tsda yozilishini sababi bu qiymatlarga type nima ekanligini aytib qo'yish uchun
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     info(value: number): string {
+//         return `Nomi ${this._name} yoshi ${this._age + value} da `;
+//     }
+//     static IsFlaying = false;//staticdanham class ichida hohlagancha foydalanish mumkun
+// }
+// const Nur: Person = new Person("Nur", 35);
+// // console.log(Nur.);//bu holatda Person classni static qiymatini ko'rib yoki olib bo'lmaydi bu staticni faqat Person classiga oid shu uchun Person classini shaxsan o'zini chaqirmasdan bu staticni ko'rib bo'lmaydi pastda staticni qanday chaqirish to'g'ri yozilgan
+// console.log(Person.IsFlaying);//false
+/////////////////////////////////////////////////////////////////////////////////
+// class Person {
+//     _name: string;
+//     _age: number;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     info(value: number): string {
+//         return `Nomi ${this._name} yoshi ${this._age + value} da `;
+//     }
+//     static IsFlaying = false;//staticdanham class ichida hohlagancha foydalanish mumkun
+//     static description (): string{//staticni ichida function metodlar yozish bu static faqat shu Person haqida yani faqat Personga oid buni class constructordan nusxalanadigan yangi objectlarga aloqasi yo'q yani Person classi haqida static malumotlar
+//         return`Bu class Person haqida...`
+//     }
+// }
+// const Nur: Person = new Person("Nur", 35);
+// console.log(Person.description());
+/////////////////////////////////////////////////////////////////////////////////////
+class Person {
+    _name: string;
+    _age: number;
+    constructor(name: string, age: number) {
+        this._name = name;
+        this._age = age;
+    }
+    info(value: number): string {
+        return `Nomi ${this._name} yoshi ${this._age + value} da `;
+    }
+    get name(): string {
+        //get va set metodi classni metodi
+        //yani getda name nomli metod ochildi bu name Personga tegishli name qilinib Personni name qiymati ushlab olindi
+        //bu name Person classni constructoridagi name, constructordagi name esa Person classdagi string typega ega  _name bilan tenglashtirilgan yani bu get dagi nameham string bo'lishi shart bo'lmasa hato chiqadi
+        return this._name;
+    }
+    set name(value: string) {
+        //yani Personni get  qilingan(alohida Persondan ajratib olingan) name qiymatiga set qilib yangi value qo'shish va bu valueham string bo'lishi shart va bu value personi _name qiymatiga teng
+        this._name = value;
+    }
+    get age(): number {
+        return this._age;
+    }
+    set age(value: number) {
+        //agega qiymat berilganda bungaham type nima ekanligi aytilishi shart
+        if (value > 0 && value < 100) {
+            //yani agega yangi qiymat yani Person classdan nusxa olinadigahn objectga yangi qiymat berilganda shu qiymatni ushlab olish va shart qo'yib qo'yish
+            this._age = value;
+        } else {
+            throw new Error("Siz noto'g'ri yosh kiritdingiz!!!"); //error zo'r ishlarkan bu error global error qaytararkan yani logda global error//yani ageni Nurda berilgan qiymati agar 0 dan yuqori 100 dan baland bo'lsa shu error ishlaydi masalan -55 yoki 101 bo'lsa
+        }
+    }
+}
+const Nur: Person = new Person("Nur", 35);
+console.log(Nur);
+Nur.age = 55; //to'g'ri
+// Nur.age = -55; //error zo'r ishlarkan bu error global error qaytararkan yani logda global error
+console.log(Nur.age);
+//
+if (Nur instanceof Person) {
+    //objecti Person classga tegishli yoki tegishli emasligini tekshirishi instanceof bilan shunday qilinadi//tyoeof bilan esa typlarni qaysi typega ega ekanligini tekshirish mumkun instanceof bilan esa objectlarni qaysi classga tegishli ekanligini tekshirish mumkun
+    console.log("Bu Nur Object Person classiga tegishli"); //logda shu chiqadi chunki Nur objecti Person class constructordan vorislangan
+} else {
+    console.log("Bu Nur Object Person classiga tegishli emas!!!");
+}
+
+// 07-darsda qoldi
+
+// tsc --watch
