@@ -445,51 +445,84 @@
 // const Nur: Person = new Person("Nur", 35);
 // console.log(Person.description());
 /////////////////////////////////////////////////////////////////////////////////////
-class Person {
-    constructor(name, age) {
-        this._name = name;
-        this._age = age;
-    }
-    info(value) {
-        return `Nomi ${this._name} yoshi ${this._age + value} da `;
-    }
-    get name() {
-        //get va set metodi classni metodi
-        //yani getda name nomli metod ochildi bu name Personga tegishli name qilinib Personni name qiymati ushlab olindi
-        //bu name Person classni constructoridagi name, constructordagi name esa Person classdagi string typega ega  _name bilan tenglashtirilgan yani bu get dagi nameham string bo'lishi shart bo'lmasa hato chiqadi
-        return this._name;
-    }
-    set name(value) {
-        //yani Personni get  qilingan(alohida Persondan ajratib olingan) name qiymatiga set qilib yangi value qo'shish va bu valueham string bo'lishi shart va bu value personi _name qiymatiga teng
-        this._name = value;
-    }
-    get age() {
-        return this._age;
-    }
-    set age(value) {
-        //agega qiymat berilganda bungaham type nima ekanligi aytilishi shart
-        if (value > 0 && value < 100) {
-            //yani agega yangi qiymat yani Person classdan nusxa olinadigahn objectga yangi qiymat berilganda shu qiymatni ushlab olish va shart qo'yib qo'yish
-            this._age = value;
-        }
-        else {
-            throw new Error("Siz noto'g'ri yosh kiritdingiz!!!"); //error zo'r ishlarkan bu error global error qaytararkan yani logda global error//yani ageni Nurda berilgan qiymati agar 0 dan yuqori 100 dan baland bo'lsa shu error ishlaydi masalan -55 yoki 101 bo'lsa
-        }
-    }
-}
-const Nur = new Person("Nur", 35);
-console.log(Nur);
-Nur.age = 55; //to'g'ri
-// Nur.age = -55; //error zo'r ishlarkan bu error global error qaytararkan yani logda global error
-console.log(Nur.age);
-//
-if (Nur instanceof Person) {
-    //objecti Person classga tegishli yoki tegishli emasligini tekshirishi instanceof bilan shunday qilinadi//tyoeof bilan esa typlarni qaysi typega ega ekanligini tekshirish mumkun instanceof bilan esa objectlarni qaysi classga tegishli ekanligini tekshirish mumkun
-    console.log("Bu Nur Object Person classiga tegishli"); //logda shu chiqadi chunki Nur objecti Person class constructordan vorislangan
-}
-else {
-    console.log("Bu Nur Object Person classiga tegishli emas!!!");
-}
+// class Person {
+//     _name: string;
+//     _age: number;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     info(value: number): string {
+//         return `Nomi ${this._name} yoshi ${this._age + value} da `;
+//     }
+//     get name(): string {
+//         //get va set metodi classni metodi
+//         //yani getda name nomli metod ochildi bu name Personga tegishli name qilinib Personni name qiymati ushlab olindi
+//         //bu name Person classni constructoridagi name, constructordagi name esa Person classdagi string typega ega  _name bilan tenglashtirilgan yani bu get dagi nameham string bo'lishi shart bo'lmasa hato chiqadi
+//         return this._name;
+//     }
+//     set name(value: string) {
+//         //yani Personni get  qilingan(alohida Persondan ajratib olingan) name qiymatiga set qilib yangi value qo'shish va bu valueham string bo'lishi shart va bu value personi _name qiymatiga teng
+//         this._name = value;
+//     }
+//     get age(): number {
+//         return this._age;
+//     }
+//     set age(value: number) {
+//         //agega qiymat berilganda bungaham type nima ekanligi aytilishi shart
+//         if (value > 0 && value < 100) {
+//             //yani agega yangi qiymat yani Person classdan nusxa olinadigahn objectga yangi qiymat berilganda shu qiymatni ushlab olish va shart qo'yib qo'yish
+//             this._age = value;
+//         } else {
+//             throw new Error("Siz noto'g'ri yosh kiritdingiz!!!"); //error zo'r ishlarkan bu error global error qaytararkan yani logda global error//yani ageni Nurda berilgan qiymati agar 0 dan yuqori 100 dan baland bo'lsa shu error ishlaydi masalan -55 yoki 101 bo'lsa
+//         }
+//     }
+// }
+// const Nur: Person = new Person("Nur", 35);
+// console.log(Nur);
+// Nur.age = 55; //to'g'ri
+// // Nur.age = -55; //error zo'r ishlarkan bu error global error qaytararkan yani logda global error
+// console.log(Nur.age);
+// //
+// if (Nur instanceof Person) {
+//     //objecti Person classga tegishli yoki tegishli emasligini tekshirishi instanceof bilan shunday qilinadi//tyoeof bilan esa typlarni qaysi typega ega ekanligini tekshirish mumkun instanceof bilan esa objectlarni qaysi classga tegishli ekanligini tekshirish mumkun
+//     console.log("Bu Nur Object Person classiga tegishli"); //logda shu chiqadi chunki Nur objecti Person class constructordan vorislangan
+// } else {
+//     console.log("Bu Nur Object Person classiga tegishli emas!!!");
+// }
+////yuqoridagi kodni commentsiz holati
+// class Person {
+//     _name: string;
+//     _age: number;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     info(value: number): string {//valuega faqat number oladi va string qilib qaytaradi
+//         return `Nomi ${this._name} yoshi ${this._age + value} da `;
+//     }
+//     get age(): number {
+//         return this._age;
+//     }
+//     set age(value: number) {
+//         if (value > 0 && value < 100) {
+//             this._age = value;
+//         } else {
+//             throw new Error("Siz noto'g'ri yosh kiritdingiz!!!");
+//         }
+//     }
+// }
+// const Nur: Person = new Person("Nur", 35);
+// console.log(Nur);//Person classdan nusxalan Nur objecti
+// Nur.age = 55; //Personni ichidagi info metodi va set age sabab endi yosh 55da
+// console.log(Nur.age); //Personni ichidagi info metodi va set age sabab endi yosh 55da
+// console.log(Nur.info(4)); //Personni info metodi va age sabab 55 yoshga 4 value sifatida qo'shildi va yosh 59 bo'ldi//Nomi Nur yoshi 59 da
+// //objectni classga tegishlimi yoki yo'qmi tekshirish
+// if (Nur instanceof Person) {
+//     console.log("Bu Nur Object Person classiga tegishli"); ///Bu Nur Object Person classiga tegishli chnki rostdan shunday
+// } else {
+//     console.log("Bu Nur Object Person classiga tegishli emas!!!");
+// }
 // 07-darsda qoldi
 // tsc --watch
 //# sourceMappingURL=index.js.map
