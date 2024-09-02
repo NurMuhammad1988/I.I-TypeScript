@@ -556,7 +556,7 @@
 // const Nur: Person = new Person("Nur", 35);
 // console.log(Nur);
 // Nur.age = 55; //to'g'ri
-// Nur.age = -55; //error zo'r ishlarkan bu error global error qaytararkan yani logda global error//shu qatorda hato elon qilingandan keyin shu qatordan pastdagi ishlab turgan kodlarham ishlamey qoldi yani hato bo'lgan joydan boshlab ts kodlarni ishlatmey qo'yarkan yani tsni  mantig'i shu hato bo'lmasligi kerak yoki to'liq ishlaydigan hatosiz dastur yoki hato qatorigacha bo'lgan hatosiz dastur lekin hatomas 
+// Nur.age = -55; //error zo'r ishlarkan bu error global error qaytararkan yani logda global error//shu qatorda hato elon qilingandan keyin shu qatordan pastdagi ishlab turgan kodlarham ishlamey qoldi yani hato bo'lgan joydan boshlab ts kodlarni ishlatmey qo'yarkan yani tsni  mantig'i shu hato bo'lmasligi kerak yoki to'liq ishlaydigan hatosiz dastur yoki hato qatorigacha bo'lgan hatosiz dastur lekin hatomas
 // console.log(Nur.age);
 // //
 // if (Nur instanceof Person) {
@@ -598,7 +598,208 @@
 // } else {
 //     console.log("Bu Nur Object Person classiga tegishli emas!!!");
 // }
+/////////////////////////////////////////////////////////////////////////////////////
+// class Person {
+//     _name: string = ""; //default holati
+//     _age: number = 0; //default holati
+//     constructor(name: string, age: number) {
+//         //object constructor yani Person classidagi qiymatlardan vorislanib object yasaydigan constructor. masalan _namega teng qilinadigan har qanday narsa endi string bo'lishi kerak aks holda hato chunki Personda _name string qilingan endi boshqa classda nusxalanib chaqirilgandaham bu qiymatlarni typesi shu string va age number bo'lishi shart tsni qoidi shu classdan nusxalangan objectlarniham type ona classdagi bilan bir hil bo'lishi shart
+//         this._name = name;
+//         this._age = age;
+//     }
+// }
+// class Student extends Person {
+//     //bu student classi extends kalit so'zi bilan Person classdan structurani  voris oladi yani Person classni constructoridagi qiymatlarni voris qilib oladi person classini constructordagi qiymatlari esa person classda qattiy qilib qanday typega oid ekanligi qattiy aytib qo'yilgan
+//     _group: string = "";
+//     _courses: number = 0;
+//     //Personni   namesi, Personni agesi group va corses esa studentni yangi qiymatlari
+//     constructor(name: string, age: number, group: string, courses: number) {
+//         //super constructorga yani bu holatda Person classidan nusxa oletgan  hu student classini constructoriga Person classni constructoridagi qiymatlarham chaqirilishi kerak va typeham aytilishi kerak yani bu constructordagi boshidagi name, va age Persondan keldi
+//         super(name, age); //bu super constructor yani extends qilnayotgan har bir classda super constructor bo'lsdi va bu super constructor birichi qatorda yozilishi kerak
+//         this._group = group;
+//         this._courses = courses;
+//     }
+// }
+// const nur: Person = new Person("Nur", 23);
+//boshidagi name bilan age yani bu holatdagi "Nur" bilan 35 yani age Persondan Studentga super constructor parametrida chaqirilgan
+// const talaba: Student = new Student("Nur", 35, "gruppasi", 4); //yangi o'zgaruvchi nomi talaba type Student classi 1chi qiymat nomi: string Nur, 2chi qiymat yoshi number 35 da,  3chi qiymat gruppasi string 4chi qiymat kurslari number//vorislangan student classdagi qiymatlarni tartiblanishi va typega qarab object chaqiriladi va bu tartib buzulsaham hato chiqadi yani tsda qattiy qoidasi shu adashmaslik global hato chiqmasligi uchun hare bir funksiya har bir object yozilayotganda qattiy qoidalar asosida yoziladi shunda hato kam bo'ladi
+// console.log(nur);
+// console.log(talaba);
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// let a: unknown = 1; //nomalum yani anyga o'hshash
+// let b: number = <number>a; //nomalum typega ega a o'zgaruvchini b o'zgaruvchiga chaqirib number typega aylantirish yani unknown typedan endi aniq tiniq number typega o'zgardi
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// class Persons {
+//     _name: string = "";
+//     _age: number = 0;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+// }
+// class Student extends Persons {
+//     //classda qiymat yaratilayotganda type aniq aytilib o'tilishi shart tsni qonuni shu
+//     _group: string = ""; //bu Stedentda yangi yaratilgan qiymat type string
+//     _courses: number = 0; //bu Stedentda yangi yaratilgan qiymat type number
+//     constructor(name: string, age: number, group: string, courses: number) {
+//         //Persons classidagi name va age qiymatlari super constructor sabab Student classga keldi
+//         super(name, age);
+//         this._group = group; //bu Stedentda yangi yaratilgan qiymat type string
+//         this._courses = courses; //bu Stedentda yangi yaratilgan qiymat type number
+//     }
+// }
+// class Teacher extends Persons {
+//     disciplines: string[] = [];
+//     constructor(name: string, age: number, disciplines: string[]) {
+//         //Teacher classi Personsdan nusxa oldi va ynagi disciplines nomli string qiymatli arrayni qo'shdi bu disciplines array ichida faqat stringni qabul qiladi object shu Teacher classdan nuxa olganda bu arrayga>>>["React.js", "JS", "Next.js"]shu holatd aqiymat berildi
+//         super(name, age);
+//         this.disciplines = disciplines;
+//     }
+// }
+// const nur: Persons = new Persons("Nur", 23);
+// console.log(nur);
+// const sardor: Student = new Student("Nur", 35, "gruppasi", 4);
+// sardor._age; //Personsdan keldi
+// sardor._name; //Personsdan keldi
+// sardor._group; //Studentdan keldi
+// sardor._courses; //Studentdan keldi
+// console.log(sardor);
+// const newSardor: Persons = <Persons>sardor;
+// newSardor._name; //bu Persons classdan keldi
+// newSardor._age; //bu Persons classdan keldi
+// console.log(newSardor);
+// const abror: Teacher = new Teacher("Abror", 34, ["React.js", "JS", "Next.js"]);
+// console.log(abror);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// class Persons {
+//     _name: string = "";
+//     _age: number = 0;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this._name}!`;//bu default hamma joyda seyhello chaqirilsaham shu default string qiymat ishlaydi va this._nameni qiy,ati yani name ishlaydi
+//     }
+// }
+// class Student extends Persons {
+//     //classda qiymat yaratilayotganda type aniq aytilib o'tilishi shart tsni qonuni shu
+//     _group: string = ""; //bu Stedentda yangi yaratilgan qiymat type string
+//     _courses: number = 0; //bu Stedentda yangi yaratilgan qiymat type number
+//     constructor(name: string, age: number, group: string, courses: number) {
+//         //Persons classidagi name va age qiymatlari super constructor sabab Student classga keldi
+//         super(name, age);
+//         this._group = group; //bu Stedentda yangi yaratilgan qiymat type string
+//         this._courses = courses; //bu Stedentda yangi yaratilgan qiymat type number
+//     }
 
-// 07-darsda qoldi
+//     //  seyHello(): string {//bu seyHello Persons ona classdagi metod lekin bu Student classda bo'lgani uchuno'z ichidagi returinni ishlatadi faqat bu qaytaradigan narsa string bo'lsa bo'ldi chuni Persons ona classda bu metodni type string bo'lsin deyilgan boshqa narsani qabul qilmaydi
+//     //         return ` Salom `
+//     // }
 
+//     seyHello(): string {//bu holatda birinchi Person classdagi seyhello va keyin esa  Student classdagi seyhelloni stringgi chiqadi chunki parentMethod bilan Personsdagi seyhello shaxsan chaqirilgan Studentdagi seyhelloni ichida 
+//         const parentMethod = super.seyHello()//ona class Personsdan metodlarniham super bilan chaqirib qiymatini o'zgartirish mumkun  sayhello string type va seyhelloni shunday super bilan chaqirib hohlagancha string malumot qo'shish mumkun
+//         return `${parentMethod} Men ${this._courses}-kursning, ${this._group}da o'qiyman `
+//     }//endi Student classidan nusxa olgan sardor nomli o'zgaruvchid ashu student classida yozilganseyHello metodi ishlaydi yani ona class parentsdan kelgani emas faqat studentda yozilgansayhello ishlaydi
+// }
+// class Teacher extends Persons {
+//     disciplines: string[] = [];
+//     constructor(name: string, age: number, disciplines: string[]) {
+//         //Teacher classi Personsdan nusxa oldi va ynagi disciplines nomli string qiymatli arrayni qo'shdi bu disciplines array ichida faqat stringni qabul qiladi object shu Teacher classdan nuxa olganda bu arrayga>>>["React.js", "JS", "Next.js"]shu holatd aqiymat berildi
+//         super(name, age);
+//         this.disciplines = disciplines;
+//     }
+//     info():string{
+//         const parent = super.seyHello()
+//         return `${parent} Men ${this.disciplines[0]} dan dars beraman`
+//     }
+// }
+// const nur: Persons = new Persons("Nur-1", 23);
+// console.log(nur);
+// console.log(nur.seyHello());
+// const sardor: Student = new Student("Nur-2", 35, "34-gruhi", 4);
+// // sardor._age; //Personsdan keldi
+// // sardor._name; //Personsdan keldi
+// // sardor._group; //Studentdan keldi
+// // sardor._courses; //Studentdan keldi
+// console.log(sardor);
+// console.log(sardor.seyHello()); //bu sayHello metodi Persons ona classda yozilgani sabab sardor o'zgaruvchidaham nur o'zgaruvchidaham nusxalandi yani Student extend classdaham Teacher extends classdaham bu sayHello bor
+// const newSardor: Persons = <Persons>sardor; //sardor o'zgaruvchi newSardor o'zgaruvchida yana chaqirilgani uchun logda ikkita Nur-2 chiqdi yani sardor o'zgaruvchi ikki martta chiqdi
+// // newSardor._name; //bu Persons classdan keldi
+// // newSardor._age; //bu Persons classdan keldi
+// console.log(newSardor);
+// console.log(newSardor.seyHello()); //bu sayHello metodi Persons ona classda yozilgani sabab sardor o'zgaruvchidaham nur o'zgaruvchidaham nusxalandi yani Student extend classdaham Teacher extends classdaham bu sayHello bor va seyhello metodi return qilsin becet ichidagi stringni va this.nameni yani ona class Perosnsni name qiymatini bu degnai har bir extend qilingan yangi classlardaham bu sayhello metodi chaqirilganda nameni yani nusxalangan objectdagi nameni oladi
+// const abror: Teacher = new Teacher("Abror", 34, ["React.js", "JS", "Next.js"]);
+// console.log(abror);
+// console.log(abror.seyHello()); //bu sayHello metodi Persons ona classda yozilgani sabab sardor o'zgaruvchidaham nur o'zgaruvchidaham nusxalandi yani Student extend classdaham Teacher extends classdaham bu sayHello bor va seyhello metodi return qilsin becet ichidagi stringni va this.nameni yani ona class Perosnsni name qiymatini bu degnai har bir extend qilingan yangi classlardaham bu sayhello metodi chaqirilganda nameni yani nusxalangan objectdagi nameni oladi
+// console.log(abror.info());
+//// yuqoridagi kodni commentsizi pastda
+class Persons {
+    _name: string = "";
+    _age: number = 0;
+    constructor(name: string, age: number) {
+        this._name = name;
+        this._age = age;
+    }
+    seyHello(): string {
+        return `Assalomu aleykum mening ismim ${this._name}!`;
+    }
+}
+
+
+
+
+class Student extends Persons {
+    _group: string = ""; 
+    _courses: number = 0; 
+    constructor(name: string, age: number, group: string, courses: number) {
+        super(name, age);
+        this._group = group; 
+        this._courses = courses; 
+    }
+
+    //  seyHello(): string {//bu seyHello Persons ona classdagi metod lekin bu Student classda bo'lgani uchuno'z ichidagi returinni ishlatadi faqat bu qaytaradigan narsa string bo'lsa bo'ldi chuni Persons ona classda bu metodni type string bo'lsin deyilgan boshqa narsani qabul qilmaydi
+    //         return ` Salom `
+    // }
+    seyHello(): string {
+        const parentMethod = super.seyHello()
+        return `${parentMethod} Men ${this._courses}-kursning, ${this._group}da o'qiyman `
+    }
+}
+
+
+
+
+class Teacher extends Persons {
+    disciplines: string[] = [];
+    constructor(name: string, age: number, disciplines: string[]) {
+        super(name, age);
+        this.disciplines = disciplines;
+    }
+    info():string{
+        const parent = super.seyHello()
+        return `${parent} Men ${this.disciplines[0]} dan dars beraman`
+    }
+}
+
+
+
+
+
+const nur: Persons = new Persons("Nur-1", 23);
+console.log(nur);
+console.log(nur.seyHello());
+const sardor: Student = new Student("Nur-2", 35, "34-gruhi", 4);
+console.log(sardor);
+console.log(sardor.seyHello());
+const newSardor: Persons = <Persons>sardor; 
+console.log(newSardor);
+console.log(newSardor.seyHello()); 
+const abror: Teacher = new Teacher("Abror", 34, ["React.js", "JS", "Next.js"]);
+console.log(abror);
+console.log(abror.seyHello()); 
+console.log(abror.info());
+
+
+// 7 chi darsni kodlarini tartiblab tushunishga oson qilib alohida alohida qil 8-chi darsdan boshla 
 // tsc --watch
