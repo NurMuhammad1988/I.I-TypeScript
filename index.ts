@@ -342,6 +342,7 @@
 // let e: Array<boolean | number | {} | boolean> = [true, 12323, false, 123];//arrayga type berishni yana bir uslubi////////////////////////////////////////////////////////////////////////////////////
 
 ///////
+
 //tuples
 // let f:[number, string]//bu holatda f o'zgaruvchiga array ichida keladigan yoki kutilgan malumotni qanday tartibda kelishi qattiy aytib qo'yilepti yani f o'zgaruvchi massiv va massivda 0 chi elementida number bo'lsin 1 chi elementida string bo'lsin bu qattiy buyruq agar info bundan boshqacha uslubda kelsa ts buni hato ko'rsatadi yani tuples kartej shu yahi tartib bilan qoida bo'yicha qabul qiladi
 // [12, 'name']//tuples endi shu tartibdagina malumot qabul qiladi
@@ -355,6 +356,7 @@
 // f = [    12,    "name",    [12,   "str"],   {}]; //bu holatda f o'zgaruvchiga san massivsan va 0 chi elementga number qabul qilasan 1 chi elementga string qabul qilasan 2 chi elementga massiv qabul qilasan va massivni 0 chi elementiga number qabul qilsan massivni 1 chi elementiga string qabul qilasan 3 chi elementga object qabul qilsan deyildi endi malumotlar aynan shu tartibda ketmaketlikda kelishi shart va agar birorta malumot kelmay qolsaham bu hato bo'ladi yani bu o'zgaruvchi ishlasa 100% ishleydi bo'masa umuman ishlameydi//////////////////////////////////////////////////////////////////////////////////
 
 //////
+
 ////Enum - qayta hissoblash//sanash
 // enum Gender{
 //     Male,//0
@@ -423,6 +425,7 @@
 ////////////////////////////////////////////////////////
 
 //////
+
 //classlar
 // class Person {}//classlar (constructor) yangi object yaratish uchun bu bo'sh class endi bu classni pastda new clait so'zi bilan yangi Nur o'zgaruvchiga chaqirdik shunda const Nur: Persondan nusxa oladi yani bo'sh objectni nusxalaydi va bu Nur nomli bo'sh objectga teng o'zgaruvchini new calit so'zi bilan Personga tenglab  qo'ydik shunda endi Nur o'zgaruvchida Person class bo'sh objectdan nusxalangan yangi Person nomli object bor va bu yangi objectga hohlagancha husisiyat yani qiymat berish mumkun
 // const Nur: Person = new Person()//yangi object
@@ -702,7 +705,7 @@
 //         return `${parentMethod} Men ${this._courses}-kursning, ${this._group}da o'qiyman `
 //     }//endi Student classidan nusxa olgan sardor nomli o'zgaruvchid ashu student classida yozilganseyHello metodi ishlaydi yani ona class parentsdan kelgani emas faqat studentda yozilgansayhello ishlaydi
 // }
-// class Teacher extends Persons {
+// class Teacher extends Persons {//extends qikinetgan class faqat bitta classdan extends qiladi
 //     disciplines: string[] = [];
 //     constructor(name: string, age: number, disciplines: string[]) {
 //         //Teacher classi Personsdan nusxa oldi va ynagi disciplines nomli string qiymatli arrayni qo'shdi bu disciplines array ichida faqat stringni qabul qiladi object shu Teacher classdan nuxa olganda bu arrayga>>>["React.js", "JS", "Next.js"]shu holatd aqiymat berildi
@@ -734,9 +737,345 @@
 // console.log(abror.seyHello()); //bu sayHello metodi Persons ona classda yozilgani sabab sardor o'zgaruvchidaham nur o'zgaruvchidaham nusxalandi yani Student extend classdaham Teacher extends classdaham bu sayHello bor va seyhello metodi return qilsin becet ichidagi stringni va this.nameni yani ona class Perosnsni name qiymatini bu degnai har bir extend qilingan yangi classlardaham bu sayhello metodi chaqirilganda nameni yani nusxalangan objectdagi nameni oladi
 // console.log(abror.info());
 /////////////////////////////////////////////////////////// yuqoridagi kodni commentsizi pastda
-class Persons {
-    _name: string = "";
-    _age: number = 0;
+// class Persons {
+//     _name: string = "";
+//     _age: number = 0;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this._name}!`;
+//     }
+// }
+// const nur: Persons = new Persons("Nur-1", 23);
+// console.log(nur);
+// console.log(nur.seyHello());//Persons ona classni seyHello metodi
+// /////////////
+// class Student extends Persons {
+//     //Persons classdan vorislangan Student classi
+//     _group: string = "";
+//     _courses: number = 0;
+//     constructor(name: string, age: number, group: string, courses: number) {
+//         super(name, age);
+//         this._group = group;
+//         this._courses = courses;
+//     }
+//     //  seyHello(): string {//bu seyHello Persons ona classdagi metod lekin bu Student classda bo'lgani uchuno'z ichidagi returinni ishlatadi faqat bu qaytaradigan narsa string bo'lsa bo'ldi chuni Persons ona classda bu metodni type string bo'lsin deyilgan boshqa narsani qabul qilmaydi
+//     //         return ` Salom `
+//     // }
+//     seyHello(): string {//logga Men 4-kursning, 34-gruhida o'qiyman ni beradi
+//         const parentMethod = super.seyHello();//logga Assalomu aleykum mening ismim Nur-2! ni beradi
+//         return `${parentMethod} Men ${this._courses}-kursning, ${this._group}da o'qiyman `;//logga Men 4-kursning, 34-gruhida o'qiyman ni beradi
+//     }
+// }
+// //                                   name   age   group   courses
+// const sardor: Student = new Student("Nur-2", 35, "34-gruhi", 4);
+// console.log(sardor);
+// console.log(sardor.seyHello());//Student classni seyHello metodi
+// const newSardor: Persons = <Persons>sardor;//newSardor o'zgaruvchi yani hech narsasi yo'q yangi o'zgaruvchi Personsdan vorislanib  qiymatlarini sardorga berdi endi newSardorda eski sardor o'zgaruvchi bor
+// console.log(newSardor);
+// console.log(newSardor.seyHello());
+// ///////////
+// class Teacher extends Persons {
+//     disciplines: string[] = [];
+//     constructor(name: string, age: number, disciplines: string[]) {//disciplinesda string typli massiv bot nima yozsaham 0 dan tartiblanib faqat string qabul qiladi bo'lmasa hato chiqadi
+//         super(name, age);
+//         this.disciplines = disciplines;
+//     }
+//     info(): string {
+//         const parent = super.seyHello(); //ona Persons classdagi sayHello metodini chaqirilishi super bilan chaqiriladi
+//         //       {parent}ni ichida ona class Personsda yozilgan sayHello bor {this.disciplines[0]}ni ichida abror o'zgaruvchi chaqirilgana 2 chi elementni 0 chi qiymati yani "React" bor
+//         return `${parent} Men ${this.disciplines[0]} dan dars beraman`;
+//     }
+// }
+// //string bo'lishi Teacher classda disciplinesda yozilgan ["React.js", "JS", "Next.js"]
+// const abror: Teacher = new Teacher("Abror", 34, ["React.js", "JS", "Next.js"]);
+// console.log(abror);
+// console.log(abror.seyHello());
+// console.log(abror.info());
+////////////////////////////////////////////////////////////////////////////////////
+
+//////
+
+////interface // Interfeyslar - bu ob'ektning tuzilishi yoki shaklini aniqlash va ob'ektga ega bo'lgan yoki ega bo'lishi kerak bo'lgan xususiyatlar va usullarni belgilash imkonini beruvchi TypeScript xususiyati . Ularning asosiy vazifasi turni tekshirish va ishlab chiquvchilarga ishlab chiqish jarayonida turga bog'liq xatolarni aniqlashda yordam berish va Asosiysi, TypeScript-dagi interfeys ob'ektning kutilayotgan tuzilishini belgilaydigan sintaktik shartnomadir . U hech qanday funksionallikni amalga oshirmasdan ob'ektlar shaklini, jumladan, ularning xossalari va usullarini tasvirlash usulini taqdim etadi.
+////Turlar ibtidoiy qiymatlar, birlashma/kesishma turlari, funksiyalar va kortejlar uchun afzal ko'riladi, interfeyslar esa yaxshiroq xato xabarlari va turni tekshirish samaradorligini taklif qiladi . Ularning o'rtasida tanlov shaxsiy imtiyozlarga, o'qish qobiliyatiga va loyiha talablariga asoslanishi kerak.
+////Interfeys - ob'ektni tavsiflovchi, lekin ularni amalga oshirish yoki ishga tushirishni ta'minlamaydigan tegishli xususiyatlar va usullar guruhidir
+////
+// interface IPerson {
+//     _name: string;
+//     _age?: number; // ? so'roq belgisi bu ageni ishlatsaham ishlatmasaham bo'ladi lekin qolganini BU INTERFACE CHAQIRILGAN CLASSDA ISHLATISH SHART BO'LMASA HATO CHIQADI
+//     seyHello(): string;
+//     // seyHello: () => string;//Interface ichida function metodlardaham array function ishlatish mumkun
+// }
+// class Persons implements IPerson {
+//     //implements kalit so'zi bilan classga interfaceni chaqirsa bo'ladi//ENDI Personsga IPersondan keladigan qiymatlarni hammasi kelishi shart tsni maqsadi Persons classi ishlaganda nimadur qolib ketmasligi yani hato chiqmasli uchun hamma qiymatlar kelishi shart
+//     _name: string = "";
+//     _age: number = 0;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this._name}, yoshim ${this._age}!`;//bu name age sayhello qiymatlari implements kalit so'zi bilan IPerson interfacedian kelepti
+//     }
+// }
+// const nur: Persons = new Persons("Nur", 35);
+// console.log(nur);
+// console.log(nur.seyHello());
+/////////////////////////////////////////////////////////////////////////////////
+//TypeScript-dagi typlar yanada moslashuvchan va ibtidoiy, kesishish, birlashma, kortej yoki turli xil ma'lumotlarni belgilashi mumkin, interfeyslar esa ob'ekt shaklini tasvirlash uchun ishlatiladi . Typelar yangi tur yaratish uchun type kalit so'zidan, interfeyslar esa interfeysni e'lon qilish uchun interfeys kalit so'zidan foydalanadi.yani typelar qattiqqo'lroq va imkoniyati kengroq
+//Interfeysning deyarli barcha xususiyatlari typeda mavjud, asosiy farq shundaki, har doim kengaytiriladigan interfeysga nisbatan yangi xususiyatlar qo'shish uchun turni qayta ochib bo'lmaydi
+//////////
+// interface IPerson {
+//     //masalan interfacega berilgan nomIPerson bilan interface ochildi va ichiga 3 ta qiymat yozildi va classga chaqirib ishlatildi lekin keyinchalik bu IPerson interfaciga yana malumot qo'shilishi kerak bo'lsa yana IPerson deb interface ochib yangi qiymatlar qo'shib ishlatish mumkun shunda birinchi interfacedan keyingi bir hil nomli interfacelar hamma qiymatini aslida birinchi yozilgan interfacega bu holatda ipersonga yig'ib boraveradi typelarda esa unday emas typelar bilan interfaceni yana bir farqi shundaki interfaceda bitta nom qayta qayta ishlatilishi mumkun lekin typelarda emas typelarda sal boshqacharoq qilib qiymatlar yana qo'shiladi
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// interface IPerson {
+//     //yani  bir hil nomli interfacega yana ikkita qiymat qo'shildi bu qo'shilgan nqiymatlarniham qanday typga ega bo'lishi kerakligi qattiy aytilishi kerak va chaqirilgan classiga bu qiymatlarham qattiy ravishda qo'shilishi shart bo'lmasa hato chiqadi yani tsda nimadur qolib ketishi kerymas hammasi ishlashi yoki o'chirilishi shart
+//     _isMarried: boolean;
+//     _cars: number;
+//     seyHello(): string;
+// }
+// class Persons implements IPerson {
+//     _name: string = "";
+//     _age: number = 0;
+//     _isMarried: boolean;
+//     _cars: number;
+//     constructor(name: string, age: number, isMarried: boolean, cars: number) {
+//         this._name = name;
+//         this._age = age;
+//         this._isMarried = isMarried;
+//         this._cars = cars;
+//     }
+//     seyHello(): string {
+//         return `Ismi: ${this._name}, yoshi: ${this._age}, oilaviy holati: ${this._isMarried},  `;
+//     }
+// }
+// const nur: Persons = new Persons("Nur", 35, false, 2);
+// console.log(nur);
+// console.log(nur.seyHello());
+///////////////////////////////////////////////////////////////////////
+// type IPerson {//hato typelarda bir hil nom bilan ishlash mumkun emas typelar yanaham qattiqqo'lroq
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// type IPerson {//hato typelarda bir hil nom bilan ishlash mumkun emas typelar yanaham qattiqqo'lroq
+//     _isMarried: boolean;
+//     _cars: number;
+//     seyHello(): string;
+// }
+// class Persons implements IPerson {
+//     _name: string = "";
+//     _age: number = 0;
+//     _isMarried: boolean;
+//     _cars: number;
+//     constructor(name: string, age: number, isMarried: boolean, cars: number) {
+//         this._name = name;
+//         this._age = age;
+//         this._isMarried = isMarried;
+//         this._cars = cars;
+//     }
+//     seyHello(): string {
+//         return `Ismi: ${this._name}, yoshi: ${this._age}, oilaviy holati: ${this._isMarried},  `;
+//     }
+// }
+// const nur: Persons = new Persons("Nur", 35, false, 2);
+// console.log(nur);
+// console.log(nur.seyHello());//brawserda faqat class ishlayapti typelar emas
+////////////////////////////////////////////////////////////////////////////////////////////////
+// interface IPersonProps {//ona interface
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// interface IPersonProps2 {//ona interface
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// interface IPerson extends IPersonProps, IPersonProps2 {//IPerson interface va ona interface IPersonPropsdan va IPersonProps2 dan vorislanepti//inerfacelarda boshqa interfacelardan hohlagancha vorislanish mumkun lekin classslarda faqat bitta classdan vorislanish mumkun
+//     //////ikkita interface yozilib classga qiymatlari chaqirilgandan keyin interface o'chirilsaham class interfacedan kelgan qiymatlarni o'zini qiymatiday o'zlashtirib ishlataveradi hato chiqarmaydi lekin interfacelarda yozilgan qiymatlardan birirtasi classda tushurib qoldirilsa shunda ts ishlaydi va aytadiki bu class interfacedan vorislangan vorislangan narsalar ichida manabu narsda classda tushib qoldi shunda hato chiqadi masalan bu holatda sayhello metodi o'chirib qo'yilganda class hato
+//     _isMarried: boolean;
+//     _cars: number;
+//     seyHello(): string;
+// }
+// class Persons implements IPerson {
+//     _name: string = "";
+//     _age: number = 0;
+//     _isMarried: boolean;
+//     _cars: number;
+//     constructor(name: string, age: number, isMarried: boolean, cars: number) {
+//         this._name = name;
+//         this._age = age;
+//         this._isMarried = isMarried;
+//         this._cars = cars;
+//     }
+//     seyHello(): string {
+//         return `Ismi: ${this._name}, yoshi: ${this._age}, oilaviy holati: ${this._isMarried},  `;
+//     }
+// }
+// const nur: Persons = new Persons("Nur", 35, false, 2);
+// console.log(nur);
+// console.log(nur.seyHello())
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+// interface IPersonProps {//ona interface
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// interface IPersonProps2 {//ona interface
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// interface IPerson extends IPersonProps, IPersonProps2 {//IPerson interface va ona interface IPersonPropsdan va IPersonProps2 dan vorislanepti//inerfacelarda boshqa interfacelardan hohlagancha vorislanish mumkun lekin classslarda faqat bitta classdan vorislanish mumkun
+//     //////ikkita interface yozilib classga qiymatlari chaqirilgandan keyin interface o'chirilsaham class interfacedan kelgan qiymatlarni o'zini qiymatiday o'zlashtirib ishlataveradi hato chiqarmaydi lekin interfacelarda yozilgan qiymatlardan birirtasi classda tushurib qoldirilsa shunda ts ishlaydi va aytadiki bu class interfacedan vorislangan vorislangan narsalar ichida manabu narsda classda tushib qoldi shunda hato chiqadi masalan bu holatda sayhello metodi o'chirib qo'yilganda class hato qaytardi
+//     _isMarried: boolean;
+//     _cars: number;
+//     seyHello(): string;
+// }
+// class Persons implements IPerson {
+//     _name: string = "";
+//     _age: number = 0;
+//     _isMarried: boolean;
+//     _cars: number;
+//     constructor(name: string, age: number, isMarried: boolean, cars: number) {
+//         this._name = name;
+//         this._age = age;
+//         this._isMarried = isMarried;
+//         this._cars = cars;
+//     }
+//     // seyHello(): string {
+//     //     return `Ismi: ${this._name}, yoshi: ${this._age}, oilaviy holati: ${this._isMarried},  `;
+//     // }//HATO>>>>>>Class 'Persons' incorrectly implements interface 'IPerson'. Property 'seyHello' is missing in type 'Persons' but required in type 'IPerson'
+// }
+// const nur: Persons = new Persons("Nur", 35, false, 2);
+// console.log(nur);//browserdagi log aslida class o'zida yozilgan aslida interfacedan kelishi kerak bo'lgan lekin hato sabab kelmagan qiymatlarni o'zlashtirib olgani uchun chiqdi aslida esa hato
+// console.log(nur.seyHello())//interfacedan nusxalanib classga kelgan va classda tushirib qoldiorilgani uchgun hato
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// type  IPersonProps = {
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// type IPersonProps2 = IPersonProps & {//typelar bir biridan vorislanmaydi lekin birlashtiriladi bu holatda va bilan yani >>& bu bilan birlashtirildi bu va degani (&) yani va  IPersonProps va IPersonProps2 typelar ishlatilishi shart yani ichidagi qiymatlar chaqirilgan classida ishlatilishi shart degani
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// class Persons implements IPersonProps {
+//     _name: string = "";
+//     _age: number = 0;
+//     _isMarried: boolean;
+//     _cars: number;
+//     constructor(name: string, age: number, isMarried: boolean, cars: number) {
+//         this._name = name;
+//         this._age = age;
+//         this._isMarried = isMarried;
+//         this._cars = cars;
+//     }
+//     seyHello(): string {
+//         return `Ismi: ${this._name}, yoshi: ${this._age}, oilaviy holati: ${this._isMarried},  `;
+//     }
+// }
+// const nur: Persons = new Persons("Nur", 35, false, 2);
+// console.log(nur);
+// console.log(nur.seyHello());
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+// type  IPerson = {
+//     _name: string;
+//     _age?: number;
+//     seyHello(): string;
+// }
+// type IPerson2 = IPerson | {
+//     _isMarried: boolean;
+//     _cars: number;
+// }
+// class Persons implements IPerson  {
+//     _name: string = "";
+//     _age: number = 0;
+//     _isMarried: boolean;
+//     _cars: number;
+//     constructor(name: string, age: number, isMarried: boolean, cars: number) {
+//         this._name = name;
+//         this._age = age;
+//         this._isMarried = isMarried;
+//         this._cars = cars;
+//     }
+//     seyHello(): string {
+//         return `Ismi: ${this._name}, yoshi: ${this._age}, oilaviy holati: ${this._isMarried},  `;
+//     }
+// }
+// const nur: Persons = new Persons("Nur", 35, false, 2);
+// console.log(nur);
+// console.log(nur.seyHello());
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////yuqoridagi interface codlarda loglarda hatolar bor etibor berma (lekin dars maqsadi to'g'ri hato faqat bazi loglarda) loglarda hatosi yo'q interface pastdagi codda
+// interface IPerson { _name: string; _age?: number; seyHello(): string;}
+// interface IStudent extends IPerson {_group: string; _course: number;}//ona IPerson interfacedan vorislangan IStudent interfeceda sayHello metodi ishlatilmadi chunki | va yani qattiy shular ishlatilsin deyilmadi
+// class Person implements IPerson {
+//     _name: string = ""; // IPerson interfecdan kelgan agar IPerson interface udalit qilinsa bu qiymatlarni class o'zlashtirib classni qiymatiday ishlatadi
+//     _age: number = 0; 
+//     constructor(name: string, age: number) {
+//         this._name = name;//IPerson interfacedan keldi
+//         this._age = age;//IPerson interfacedan keldi
+//     }
+//     seyHello(): string {//IPerson interfacedan keldi
+//         return `Assalomu aleykum mening ismim ${this._name}!     `;
+//     }
+// }
+// class Student extends Person implements IStudent {
+//     _group: string = "";
+//     _course: number = 0;
+//     constructor(name: string, age: number, group: string, course: number) {
+//         super(name, age);//ona IPerson interfacedan vorislangan Person classidan kelgan
+//         this._group = group;//IStudent interfacedan vorislangan
+//         this._course = course;//IStudent interfacedan vorislangan
+//         //bu Student classi IStudent interfacedan vorislangabni uchun sayHello metodi kelmasaham hato chiqarmadi chunki sayHello metodi IPerson interface chaqirilgan classda qattiy ishlatilishi kerak
+//     }
+// }
+// const nur: IPerson = new Person("Nur, bu IPerson interfacedan vorislangan Person classi bilan yaratilgan object", 35);
+// console.log(nur);console.log(nur.seyHello());
+// const nur2: IStudent = new Student("Nur-2, bu Person classidan vorislangan Student classi student classi IStudent interfacedan vorislangan ", 36, "123-gruh", 4);
+// console.log(nur2);console.log(nur2.seyHello());
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////
+//abstract classlar
+// interface IPerson { _name: string; _age?: number; seyHello(): string;}
+// interface IStudent extends IPerson {_group: string; _course: number;}
+// abstract class Person implements IPerson {//abstract classlardan object yaratib bo'lmaydi faqatgina vorislanish uchun ishlatiladi// endi Person classidan object yasab bo'lmaydi faqat Person classini Student classiga vorislantirib Student classidan object yasash mumkun shunda Student classidan yasalgan objectda bu abstract class Personniham qiymatlari vorislanadi va Person abstract classdagi qiymatlarham Student classga o'tadi lekin endi Personni o'zidan to'g'ridan to'g'ri object yasab bo'lmaydi
+//     _name: string = ""; 
+//     _age: number = 0; 
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this._name}!`;
+//     }
+// }
+// class Student extends Person implements IStudent {
+//     _group: string = "";
+//     _course: number = 0;
+//     constructor(name: string, age: number, group: string, course: number) {
+//         super(name, age);
+//         this._group = group;
+//         this._course = course;
+//     }
+// }
+// const nur2: IStudent = new Student("Nur-2, bu Person classidan vorislangan Student classi student classi IStudent interfacedan vorislangan ", 36, "123-gruh", 4);
+// console.log(nur2);console.log(nur2.seyHello());
+//////////////////////////////////////////////////////////////////////////////////////
+interface IPerson { _name: string; _age?: number; seyHello(): string; info(): string}
+interface IStudent extends IPerson {_group: string; _course: number;}
+abstract class Person implements IPerson {
+    _name: string = ""; 
+    _age: number = 0; 
     constructor(name: string, age: number) {
         this._name = name;
         this._age = age;
@@ -744,53 +1083,28 @@ class Persons {
     seyHello(): string {
         return `Assalomu aleykum mening ismim ${this._name}!`;
     }
+    abstract info(): string //abstract metodlar//abstract metodlar bor classdan vorislanetgan classlar (masalan bu holatda IStudent classi) abstract metodni o'z ichid aqo'llashi majburiy yani tushib qolmasligi kerak tsni qonuni yani objectda nimadur tushib qolmasligi kerak//yani abstract metodlar bilan qattiqqo'lroq lekinaslida agar abstract metodlarda ishlatilmasaham hato chiqdi ts baribir infoni ishlatmaganimzi uchun student classda hato chiqardi
 }
-const nur: Persons = new Persons("Nur-1", 23);
-console.log(nur);
-console.log(nur.seyHello());//Persons ona classni seyHello metodi
-/////////////
-class Student extends Persons {
-    //Persons classdan vorislangan Student classi
+class Student extends Person implements IStudent {
     _group: string = "";
-    _courses: number = 0;
-    constructor(name: string, age: number, group: string, courses: number) {
+    _course: number = 0;
+    constructor(name: string, age: number, group: string, course: number) {
         super(name, age);
         this._group = group;
-        this._courses = courses;
+        this._course = course;
     }
-    //  seyHello(): string {//bu seyHello Persons ona classdagi metod lekin bu Student classda bo'lgani uchuno'z ichidagi returinni ishlatadi faqat bu qaytaradigan narsa string bo'lsa bo'ldi chuni Persons ona classda bu metodni type string bo'lsin deyilgan boshqa narsani qabul qilmaydi
-    //         return ` Salom `
-    // }
-    seyHello(): string {//logga Men 4-kursning, 34-gruhida o'qiyman ni beradi
-        const parentMethod = super.seyHello();//logga Assalomu aleykum mening ismim Nur-2! ni beradi
-        return `${parentMethod} Men ${this._courses}-kursning, ${this._group}da o'qiyman `;//logga Men 4-kursning, 34-gruhida o'qiyman ni beradi
-    }
-}
-//                                   name   age   group   courses
-const sardor: Student = new Student("Nur-2", 35, "34-gruhi", 4);
-console.log(sardor);
-console.log(sardor.seyHello());//Student classni seyHello metodi
-const newSardor: Persons = <Persons>sardor;//newSardor o'zgaruvchi yani hech narsasi yo'q yangi o'zgaruvchi Personsdan vorislanib  qiymatlarini sardorga berdi endi newSardorda eski sardor o'zgaruvchi bor
-console.log(newSardor);
-console.log(newSardor.seyHello());
-///////////
-class Teacher extends Persons {
-    disciplines: string[] = [];
-    constructor(name: string, age: number, disciplines: string[]) {
-        super(name, age);
-        this.disciplines = disciplines;
-    }
-    info(): string {
-        const parent = super.seyHello(); //ona Persons classdagi sayHello metodini chaqirilishi super bilan chaqiriladi
-        //       {parent}ni ichida ona class Personsda yozilgan sayHello bor {this.disciplines[0]}ni ichida abror o'zgaruvchi chaqirilgana 2 chi elementni 0 chi qiymati yani "React" bor
-        return `${parent} Men ${this.disciplines[0]} dan dars beraman`;
+        info(): string {
+        return `
+        Ism: ${this._name}
+        Yosh: ${this._age}
+        Gruh: ${this._group}
+        Kurs: ${this._course}`
     }
 }
-//string bo'lishi Teacher classda disciplinesda yozilgan ["React.js", "JS", "Next.js"]
-const abror: Teacher = new Teacher("Abror", 34, ["React.js", "JS", "Next.js"]);
-console.log(abror);
-console.log(abror.seyHello());
-console.log(abror.info());
+const nur2: IStudent = new Student("Nur-2, bu Person classidan vorislangan Student classi student classi IStudent interfacedan vorislangan IStudent interface esa IPersonn interfacedan vorislangan ", 36, "123-gruh", 4);
+console.log(nur2);console.log(nur2.seyHello());console.log(nur2.info());
 
-// 7 chi darsni kodlarini tartiblab tushunishga oson qilib alohida alohida qil 8-chi darsdan boshla
+
+
+
 // tsc --watch
