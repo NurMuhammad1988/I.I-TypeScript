@@ -697,7 +697,7 @@
 //     //         return ` Salom `
 //     // }
 
-//     seyHello(): string {//bu holatda birinchi Person classdagi seyhello va keyin esa  Student classdagi seyhelloni stringgi chiqadi chunki parentMethod bilan Personsdagi seyhello shaxsan chaqirilgan Studentdagi seyhelloni ichida 
+//     seyHello(): string {//bu holatda birinchi Person classdagi seyhello va keyin esa  Student classdagi seyhelloni stringgi chiqadi chunki parentMethod bilan Personsdagi seyhello shaxsan chaqirilgan Studentdagi seyhelloni ichida
 //         const parentMethod = super.seyHello()//ona class Personsdan metodlarniham super bilan chaqirib qiymatini o'zgartirish mumkun  sayhello string type va seyhelloni shunday super bilan chaqirib hohlagancha string malumot qo'shish mumkun
 //         return `${parentMethod} Men ${this._courses}-kursning, ${this._group}da o'qiyman `
 //     }//endi Student classidan nusxa olgan sardor nomli o'zgaruvchid ashu student classida yozilganseyHello metodi ishlaydi yani ona class parentsdan kelgani emas faqat studentda yozilgansayhello ishlaydi
@@ -733,7 +733,7 @@
 // console.log(abror);
 // console.log(abror.seyHello()); //bu sayHello metodi Persons ona classda yozilgani sabab sardor o'zgaruvchidaham nur o'zgaruvchidaham nusxalandi yani Student extend classdaham Teacher extends classdaham bu sayHello bor va seyhello metodi return qilsin becet ichidagi stringni va this.nameni yani ona class Perosnsni name qiymatini bu degnai har bir extend qilingan yangi classlardaham bu sayhello metodi chaqirilganda nameni yani nusxalangan objectdagi nameni oladi
 // console.log(abror.info());
-//// yuqoridagi kodni commentsizi pastda
+/////////////////////////////////////////////////////////// yuqoridagi kodni commentsizi pastda
 class Persons {
     _name: string = "";
     _age: number = 0;
@@ -745,61 +745,52 @@ class Persons {
         return `Assalomu aleykum mening ismim ${this._name}!`;
     }
 }
-
-
-
-
+const nur: Persons = new Persons("Nur-1", 23);
+console.log(nur);
+console.log(nur.seyHello());//Persons ona classni seyHello metodi
+/////////////
 class Student extends Persons {
-    _group: string = ""; 
-    _courses: number = 0; 
+    //Persons classdan vorislangan Student classi
+    _group: string = "";
+    _courses: number = 0;
     constructor(name: string, age: number, group: string, courses: number) {
         super(name, age);
-        this._group = group; 
-        this._courses = courses; 
+        this._group = group;
+        this._courses = courses;
     }
-
     //  seyHello(): string {//bu seyHello Persons ona classdagi metod lekin bu Student classda bo'lgani uchuno'z ichidagi returinni ishlatadi faqat bu qaytaradigan narsa string bo'lsa bo'ldi chuni Persons ona classda bu metodni type string bo'lsin deyilgan boshqa narsani qabul qilmaydi
     //         return ` Salom `
     // }
-    seyHello(): string {
-        const parentMethod = super.seyHello()
-        return `${parentMethod} Men ${this._courses}-kursning, ${this._group}da o'qiyman `
+    seyHello(): string {//logga Men 4-kursning, 34-gruhida o'qiyman ni beradi
+        const parentMethod = super.seyHello();//logga Assalomu aleykum mening ismim Nur-2! ni beradi
+        return `${parentMethod} Men ${this._courses}-kursning, ${this._group}da o'qiyman `;//logga Men 4-kursning, 34-gruhida o'qiyman ni beradi
     }
 }
-
-
-
-
+//                                   name   age   group   courses
+const sardor: Student = new Student("Nur-2", 35, "34-gruhi", 4);
+console.log(sardor);
+console.log(sardor.seyHello());//Student classni seyHello metodi
+const newSardor: Persons = <Persons>sardor;//newSardor o'zgaruvchi yani hech narsasi yo'q yangi o'zgaruvchi Personsdan vorislanib  qiymatlarini sardorga berdi endi newSardorda eski sardor o'zgaruvchi bor
+console.log(newSardor);
+console.log(newSardor.seyHello());
+///////////
 class Teacher extends Persons {
     disciplines: string[] = [];
     constructor(name: string, age: number, disciplines: string[]) {
         super(name, age);
         this.disciplines = disciplines;
     }
-    info():string{
-        const parent = super.seyHello()
-        return `${parent} Men ${this.disciplines[0]} dan dars beraman`
+    info(): string {
+        const parent = super.seyHello(); //ona Persons classdagi sayHello metodini chaqirilishi super bilan chaqiriladi
+        //       {parent}ni ichida ona class Personsda yozilgan sayHello bor {this.disciplines[0]}ni ichida abror o'zgaruvchi chaqirilgana 2 chi elementni 0 chi qiymati yani "React" bor
+        return `${parent} Men ${this.disciplines[0]} dan dars beraman`;
     }
 }
-
-
-
-
-
-const nur: Persons = new Persons("Nur-1", 23);
-console.log(nur);
-console.log(nur.seyHello());
-const sardor: Student = new Student("Nur-2", 35, "34-gruhi", 4);
-console.log(sardor);
-console.log(sardor.seyHello());
-const newSardor: Persons = <Persons>sardor; 
-console.log(newSardor);
-console.log(newSardor.seyHello()); 
+//string bo'lishi Teacher classda disciplinesda yozilgan ["React.js", "JS", "Next.js"]
 const abror: Teacher = new Teacher("Abror", 34, ["React.js", "JS", "Next.js"]);
 console.log(abror);
-console.log(abror.seyHello()); 
+console.log(abror.seyHello());
 console.log(abror.info());
 
-
-// 7 chi darsni kodlarini tartiblab tushunishga oson qilib alohida alohida qil 8-chi darsdan boshla 
+// 7 chi darsni kodlarini tartiblab tushunishga oson qilib alohida alohida qil 8-chi darsdan boshla
 // tsc --watch
