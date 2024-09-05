@@ -101,7 +101,7 @@
 //     fn("Hello, World");
 //   }
 
-//   function printToConsole(s: string) {//yani bu holatda greeter funksiya void yani hech narsa qaytarmeydi va bu foidli greeter funksiya printToConsoleda typelanib greetor funksiyani ichida chaqirildi
+//   function printToConsole(s: string) {//yani bu holatda greeter funksiya void yani hech narsa qaytarmeydi va bu voidli greeter funksiya printToConsoleda typelanib greetor funksiyani ichida chaqirildi
 //     console.log(s);
 //   }
 
@@ -1019,7 +1019,7 @@
 // interface IStudent extends IPerson {_group: string; _course: number;}//ona IPerson interfacedan vorislangan IStudent interfeceda sayHello metodi ishlatilmadi chunki | va yani qattiy shular ishlatilsin deyilmadi
 // class Person implements IPerson {
 //     _name: string = ""; // IPerson interfecdan kelgan agar IPerson interface udalit qilinsa bu qiymatlarni class o'zlashtirib classni qiymatiday ishlatadi
-//     _age: number = 0; 
+//     _age: number = 0;
 //     constructor(name: string, age: number) {
 //         this._name = name;//IPerson interfacedan keldi
 //         this._age = age;//IPerson interfacedan keldi
@@ -1049,8 +1049,8 @@
 // interface IPerson { _name: string; _age?: number; seyHello(): string;}
 // interface IStudent extends IPerson {_group: string; _course: number;}
 // abstract class Person implements IPerson {//abstract classlardan object yaratib bo'lmaydi faqatgina vorislanish uchun ishlatiladi// endi Person classidan object yasab bo'lmaydi faqat Person classini Student classiga vorislantirib Student classidan object yasash mumkun shunda Student classidan yasalgan objectda bu abstract class Personniham qiymatlari vorislanadi va Person abstract classdagi qiymatlarham Student classga o'tadi lekin endi Personni o'zidan to'g'ridan to'g'ri object yasab bo'lmaydi
-//     _name: string = ""; 
-//     _age: number = 0; 
+//     _name: string = "";
+//     _age: number = 0;
 //     constructor(name: string, age: number) {
 //         this._name = name;
 //         this._age = age;
@@ -1071,40 +1071,365 @@
 // const nur2: IStudent = new Student("Nur-2, bu Person classidan vorislangan Student classi student classi IStudent interfacedan vorislangan ", 36, "123-gruh", 4);
 // console.log(nur2);console.log(nur2.seyHello());
 //////////////////////////////////////////////////////////////////////////////////////
-interface IPerson { _name: string; _age?: number; seyHello(): string; info(): string}
-interface IStudent extends IPerson {_group: string; _course: number;}
-abstract class Person implements IPerson {
-    _name: string = ""; 
-    _age: number = 0; 
-    constructor(name: string, age: number) {
-        this._name = name;
-        this._age = age;
-    }
-    seyHello(): string {
-        return `Assalomu aleykum mening ismim ${this._name}!`;
-    }
-    abstract info(): string //abstract metodlar//abstract metodlar bor classdan vorislanetgan classlar (masalan bu holatda IStudent classi) abstract metodni o'z ichid aqo'llashi majburiy yani tushib qolmasligi kerak tsni qonuni yani objectda nimadur tushib qolmasligi kerak//yani abstract metodlar bilan qattiqqo'lroq lekinaslida agar abstract metodlarda ishlatilmasaham hato chiqdi ts baribir infoni ishlatmaganimzi uchun student classda hato chiqardi
+// interface IPerson { _name: string; _age?: number; seyHello(): string; info(): string}
+// interface IStudent extends IPerson {_group: string; _course: number;}
+// abstract class Person implements IPerson {
+//     _name: string = "";
+//     _age: number = 0;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this._name}!`;
+//     }
+//     abstract info(): string //abstract metodlar//abstract metodlar bor classdan vorislanetgan classlar (masalan bu holatda IStudent classi) abstract metodni o'z ichid aqo'llashi majburiy yani tushib qolmasligi kerak tsni qonuni yani objectda nimadur tushib qolmasligi kerak//yani abstract metodlar bilan qattiqqo'lroq lekinaslida agar abstract metodlarda ishlatilmasaham hato chiqdi ts baribir infoni ishlatmaganimzi uchun student classda hato chiqardi
+// }
+// class Student extends Person implements IStudent {
+//     _group: string = "";
+//     _course: number = 0;
+//     constructor(name: string, age: number, group: string, course: number) {
+//         super(name, age);
+//         this._group = group;
+//         this._course = course;
+//     }
+//         info(): string {
+//         return `
+//         Ism: ${this._name}
+//         Yosh: ${this._age}//age number bo'lsaham bu info metodi endi buni string holatga o'giradi yani infoni qiymati faqat string bo'ladi
+//         Gruh: ${this._group}
+//         Kurs: ${this._course}`
+//     }
+// }
+// const nur2: IStudent = new Student("Nur-2, bu Person classidan vorislangan Student classi student classi IStudent interfacedan vorislangan IStudent interface esa IPersonn interfacedan vorislangan ", 36, "123-gruh", 4);
+// console.log(nur2);console.log(nur2.seyHello());console.log(nur2.info());
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////
+////public, private, protected roadonly
+
+// class Person {
+//     // public _name: string = "";//classlar ichidagi qiymatlar defult holatda public yani ochiq bo'ladi
+//     private _name: string = ""; //shaxsiy yani qulflangan bo'ladi faqat shu Person classga aloqador bo'ladi tashqariga chiqmaydi shu sabab bu Person classidan vorislangan Student classini name qiymatida hatolik sodir bo'ldi privateda qiymatni vorislantirib ishlatib bo'lmaydi
+//     _age: number = 0;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this._name}!`;
+//     }
+// }
+// class Student extends Person {
+//     _group: string = "";
+//     _course: number = 0;
+//     constructor(name: string, age: number, group: string, course: number) {
+//         super(name, age);
+//         this._group = group;
+//         this._course = course;
+//     }
+//     info(): string {
+//         return `
+//         Ism: ${this._name}
+//         Yosh: ${this._age}
+//         Gruh: ${this._group}
+//         Kurs: ${this._course}`;
+//     }
+// }
+// const nur: Person = new Person("Nur", 35);
+
+// const nur2 = new Student("Nur-2,  ", 36, "123-gruh", 4);
+// console.log(nur);
+// console.log(nur2);
+// console.log(nur2.seyHello());
+// console.log(nur2.info());
+//////////////////////////////////////////////////////////////////////////////////////////////
+// class Person {
+//     // public _name: string = "";//classlar ichidagi qiymatlar defult holatda public yani ochiq bo'ladi
+//     // private _name: string = "";
+//     protected _name: string = ""; //asralgan yani bu protected typiham privatega o'hshaydi faqat farqi bundan voris olsa bo'ladi lekin voris olgan classdan object yasashda ishlamaydi yani bu holatdagi string typli name qiymatiga protected type berildi endi bu nameni boshqa classlarga vorislantirish bilan jo'natsa bo'ladi lekin object yasab bo'lmaydi bu holatda Student classi Person classidan vorislangan va Student classidan nur2 objecti yasalgan shu objectda nameni alohida chaqirib ishlatib bo'lmaydi masalan console.log(nur2.???); name qiymati yo'q chunki protected
+//     _age: number = 0;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this._name}!`;
+//     }
+// }
+// class Student extends Person {
+//     _group: string = "";
+//     _course: number = 0;
+//     constructor(name: string, age: number, group: string, course: number) {
+//         super(name, age);
+//         this._group = group;
+//         this._course = course;
+//     }
+//     //   private protected public metodlargaham bu typelarni berib qo'yish mumkun public aslida aftamatik yozilgan bo'ladi
+//     info(): string {
+//         return `
+//         Ism: ${this._name}
+//         Yosh: ${this._age}
+//         Gruh: ${this._group}
+//         Kurs: ${this._course}`;
+//     }
+// }
+// const nur: Person = new Person("Nur", 35);
+
+// const nur2 = new Student("Nur-2,", 36, "123-gruh", 4);
+// console.log(nur);
+// console.log(nur2);
+// console.log(nur2.seyHello());
+// console.log(nur2.info());
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+// class Person {
+//     constructor(public name: string, public age: number) {}//constructor ichidaprivate protected va publicdan foydalanish///constructor ichida classga qiymatlar berish yani bu holatda qiymatlar oldiga qanday type bo'lishi yani ts typemas yani o'zi qanday qiymat bo'lishi SHAXSAN AYTILDI SHUNDA YUQORIGA CLASS boshiga qaytadan qiymat berish shart emas ekan constructorni o'zida classsni qiymatlari bittada yozib ketilar ekan
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this.name}!`;
+//     }
+// }
+// class Student extends Person {
+//     _group: string = "";
+//     _course: number = 0;
+//     constructor(name: string, age: number, group: string, course: number) {
+//         super(name, age);
+//         this._group = group;
+//         this._course = course;
+//     }
+//     info(): string {
+//         return `
+//         Ism: ${this.name}
+//         Yosh: ${this.age}
+//         Gruh: ${this._group}
+//         Kurs: ${this._course}`;
+//     }
+// }
+// const nur: Person = new Person("Nur", 35);
+// const nur2 = new Student("Nur-2,", 36, "123-gruh", 4);
+// console.log(nur);
+// console.log(nur2);
+// console.log(nur2.seyHello());
+// console.log(nur2.info());
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// class Person {
+// public readonly _name: string = "";//readonly type bilan endi bu namega tushgan qiymat o'zgarmaydi huddi constga o'hshab//bu holatda Personn classidan object yasalayotgan nur nomli o'zgaruvchi va Person classidan voris olayotgan Student classini nur2 nomli o'zgaruvchilardaham bu readonly qilingan name qiymati chaqirilgan va endi bu nameni ikkala o'zgaruvchidaham o'zgartirib bo'lmaydi masalan bunday>>>>>>>>nur._name = "some name" yoki nur2._name = "some name" endi namelar o'zgarmaydigan qattiy bo'ldi yani object yasalgandagi birinchiqiymatini yasalgan joydan ("Nur", 35)boshqa joyda o'zgartirib bo'lmaydi
+//     _age: number = 0;
+//     constructor(name: string, age: number) {
+//         this._name = name;
+//         this._age = age;
+//     }
+//     seyHello(): string {
+//         return `Assalomu aleykum mening ismim ${this._name}!`;
+//     }
+// }
+// class Student extends Person {
+//     _group: string = "";
+//     _course: number = 0;
+//     constructor(name: string, age: number, group: string, course: number) {
+//         super(name, age);
+//         this._group = group;
+//         this._course = course;
+//     }
+//     info(): string {
+//         return `
+//         Ism: ${this._name}
+//         Yosh: ${this._age}
+//         Gruh: ${this._group}
+//         Kurs: ${this._course}`;
+//     }
+// }
+// const nur: Person = new Person("Nur", 35);
+
+// const nur2 = new Student("Nur-2,  ", 36, "123-gruh", 4);
+// console.log(nur);
+// // nur._name = "some name"////hato chunki ona class Personga bu _nameni o'zgarmas qilib qo'yildi (readonly)
+// console.log(nur2);
+// console.log(nur2.seyHello());
+// console.log(nur2.info());
+// // nur2._name = "some name"////hato chunki ona class Personga bu _nameni o'zgarmas qilib qo'yildi (readonly)
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////
+////namespace - bu funktsiyalarni mantiqiy guruhlash uchun ishlatiladigan usul . U umumiy munosabatlarga ega bo'lgan xususiyatlar va ob'ektlarni qamrab oladi. Bu bizga kodimizni ancha toza tarzda tashkil qilish imkonini beradi namespace ichki modullar sifatida ham tanilgan.////TypeScript-da namespace kodni mantiqiy guruhlarga ajratish va identifikatorlar o'rtasida nomlash to'qnashuvlarini oldini olish usulidir . Nomlar bo'shliqlari tegishli kodni bitta namespacega yoki modulga guruhlash usulini taqdim etadi, shunda biz kodimizni osongina boshqarishimiz, qayta ishlatishimiz va saqlashimiz mumkin.
+// namespace Utils {
+//      function logs(text: string, color: string, fontSize?: string): void {
+//         if (fontSize) {
+//             console.log(`%c${text}`, `color: ${color}; font-size: ${fontSize}`);
+//         } else {
+//             console.log(`%c${text}`, `color: ${color}`);
+//         }
+//     }
+//     logs("Salom TypeScript", "red", "62px");//bu logs Utilsni ichidaham tashqaridaham ishlaydi faqat utilsni ichkarida ishlashi uchun export qilinmasa bo'ldi agar tashqarida ishlatilmoqchi bo'lsa functionndan oldin export qo'yilsa bo'ldi
+//     // logs("Salom TypeScript", "red", );
+
+// }           //logs funksiyadagi qiymnatlar qanday typega ega bo'lishi aytildi masalan fonstsize erkin yani obshinal yani ?<<ishlasaham ishlamasaham hato chiqarma degan mano borligi uchun if else bilan shuni tekshirildi yani agar fontsize bor bo'lsa logda %c bu %c belgisi yani bayrog'i style css classlarni stringga chaqirib beradigan kalit yani endi color cssdagi color font-size cssdagi font-size va agar fontsize bor bo'lsa text ishlasin yani string va colori bo'lsin string va fontsizi bo'lsin string yoki fontsizesi bo'lsin va logsni chaqirganda parametriga bu funksiya yozilgandagi parametridagi narsalar chaqirildi va logda red rangli 62pxlli text yani birinchi qiymat chiqdi chunki endi bu color: ${color} aniq cssdagi class c% sabab shu sabab tsda dynamic tarzda css stylelar ishlatildi text esa birinchi bu o'zi nima bo'lsin deganda string text bo'lsin buyrug'ini ifoda qiladi yani textni yani "salom type script"ni  colori red bo'lsin font-sizi 62px bo'lsin  mobodo font-sizi bo'lmasa fontsizesizham ishlayversin>>>>logs("Salom TypeScript", "red", );
+/////////////////////////////////////////////////////Bu yerda node.js formatidagi barcha bayroqlar: %c: String %d: Raqam %i: parseInt(value, 10) %f: parseFloat(value) %j: JSON %o: Object (jumladan, sanab bo‘lmaydigan xususiyatlar va proksi-serverlar) %O: Ob'ekt (hisoblab bo'lmaydigan xususiyatlar va proksi-serverlarni o'z ichiga olmaydi) %c: CSS %%: yagona p .
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// namespace Utils {
+//     export  function logs(text: string, color: string, fontSize?: string): void {
+//          if (fontSize) {
+//              console.log(`%c${text}`, `color: ${color}; font-size: ${fontSize}`);
+//          } else {
+//              console.log(`%c${text}`, `color: ${color}`);
+//          }
+//      }
+//      logs("Salom TypeScript", "red", "62px");// function export qilinsaham ichkaridaham ishlayveradi
+//  }
+//  Utils.logs("Salom dunyo","blue")//Utils namespaceni tashqaridaham mishlatish uchun funksiyani export qilingani font-sizesiz ishlatildi chunki font-size ? yani ishlamasa elseni ichidagi ishlasin deyilgan
+//////////////////////////////////////////////////////////////////////////////////////////////
+// namespace Utils {
+//     export function log(text: string, color: string, fontSize?: string): void {
+//         if (fontSize) {
+//             console.log(`%c${text}`, `color: ${color}; font-size: ${fontSize}`);
+//         } else {
+//             console.log(`%c${text}`, `color: ${color}`);
+//         }
+//     }
+//     log("Salom TypeScipt", "red", "32px");
+// }
+// Utils.log("Salom dunyo", "green", "24px");
+// namespace Animals {
+//     export abstract class Animal {//abstract class yani bundan voris olsa bo'ladi lekin bu class bilan object yaratib bo'lmaydi// animals namespaceni ichidagi animal classi tashqarida ishlatish uchun export qilinishi shart
+//         protected name: string;//himoyalangan qiymat
+//         constructor(name: string) {
+//             this.name = name;
+//         }
+//         abstract say(): void;
+//     }
+// }
+// namespace Animals {//namespacelarni nomlari bir hil bo'lsaham ishlayveradi huddi interfacelarga o'hshab
+//     export class Tiger extends Animals.Animal {//animals namespaceni ichidagi animal classidan vorislanish
+//         private sound: string;//private yani shaxsiy chunki bu tigerni ovozi va buni boshqa hayvonlar uchun class yaratilganda adashib ishlatmaslik kerakli uchun private berildi chunki tigerni ovoziga boshqa ovozlar o'hshamaydi amasalannadashim quyon classiga ishlatib qo'ymaslik uchun tsda shunday ehtiyot bo'linadi yani hatolardan shunday qochiladi
+//         constructor(name: string, sound: string) {
+//             super(name);//super bilan animal class ichidagi name qiymati chaqirildi
+//             this.sound = sound;//shaxsan tiger classni qiymati
+//         }
+//         say(): void {
+//             Utils.log(//utilsdagi topshiriq bilan tigerni say metodi vazifalandi yani endi tiger nima desa yani tigerni namesi va soundi qanday string bo'lsa shu stringga utils bilan style berilmoqda yani rangi blue fontsize 44px bo'ladi//utilsda birinchi text qiymati berilgan edi bu holatda tex qiymati yo'qligi uchun yani thislar borligi uchun text qiymatiga shu thislarni o'giradi yani obu classdan object yasalayotganda utils bu thislarni qiymatini string qiladi va qolgan  ikkita qiymatniham sylelar bilan string qiladi shunda text string rang blue fontsize 44px bo'ladi
+//                 `${this.name} - ${this.sound}, `,
+//                 "blue",
+//                 "44px"
+//             );
+//         }
+//     }
+// }
+// const tiger = new Animals.Tiger("Sherxon", "RRRR");//birinchi animals namespacedan vorislangan ikkinchi animals namespacedan vorislangan tiger class birinchi qiymatiga ona classdan vorislangan name stringni ikkinchi qiymatiga tiger classdan vorislangan sound
+// console.log(tiger);
+// tiger.say();//birinchi animals namespacedan vorislangan ikkinchi animals namespacedan vorislangan tiger class birinchi qiymatiga ona classdan vorislangan name stringni ikkinchi qiymatiga tiger classdan vorislangan sound va say metodi bilan
+/////////////////////////////////////////////////////////////////////////////////////////////////
+// namespace Utils {
+//     export function log(text: string, color: string, fontSize?: string): void {
+//         if (fontSize) {
+//             console.log(`%c${text}`, `color: ${color}; font-size: ${fontSize}`);
+//         } else {
+//             console.log(`%c${text}`, `color: ${color}`);
+//         }
+//     }
+//     log("Salom TypeScipt", "red", "32px");
+// }
+// Utils.log("Salom dunyo", "green", "24px");
+// namespace Animals {
+//     export abstract class Animal {
+//         protected name: string;
+//         constructor(name: string) {
+//             this.name = name;
+//         }
+//         abstract say(): void;
+//     }
+// }
+// namespace Animals {
+//     export class Tiger extends Animals.Animal {
+//         private sound: string;//private yani shaxsiy chunki bu tigerni ovozi va buni boshqa hayvonlar uchun class yaratilganda adashib ishlatmaslik kerakli uchun private berildi chunki tigerni ovoziga boshqa ovozlar o'hshamaydi amasalannadashim quyon classiga ishlatib qo'ymaslik uchun tsda shunday ehtiyot bo'linadi yani hatolardan shunday qochiladi
+//         #sound: string; //private typeni # bilan yozilishi shunda private deb yozish shartmas bu #===privatega lekin object ichida chaqirsa bo'ladi ts hato ko'rsatadi lekin ishlayveradi
+//         constructor(name: string, sound: string) {
+//             super(name);
+//             this.sound = sound;
+//             this.#sound = sound;
+//         }
+//         say(): void {
+//             Utils.log(
+//                 `${this.name} - ${this.sound}, ${this.#sound}`,
+//                 "blue",
+//                 "24px"
+//             );
+//         }
+//     }
+//     export namespace Pets {//namespaceni ichida hohlagancha class yaratish mumkun
+//         export class Cat extends Animals.Animal {
+//             private sound: string;
+//             constructor(name: string, sound: string) {
+//                 super(name);
+//                 this.sound = sound;
+//             }
+//             say(): void {
+//                 Utils.log(`${this.name} - ${this.sound}`, "blue", "24px");
+//             }
+//         }
+//     }
+// }
+// const tiger = new Animals.Tiger("Sherxon", "RRRR");
+// console.log(tiger);
+// tiger.say(); //"RRRR" ikki martta kelepti #sound va private sound sabab
+// const cat = new Animals.Pets.Cat("Mushuk", "Mov");//namespacelar ichidagi classlarni ichma ich chaqirish
+// console.log(cat);
+// cat.say();
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+////yuqoridagi kodlarni kommentsiz yozilgani
+// namespace Utils {
+//     export function log(text: string, color: string, fontSize?: string): void {
+//         if (fontSize) {
+//             console.log(`%c${text}`, `color: ${color}; font-size: ${fontSize}`);
+//         } else {
+//             console.log(`%c${text}`, `color: ${color}`);
+//         }
+//     }
+//     log("Salom TypeScipt", "red", "62px");
+// }
+// Utils.log("Salom dunyo", "green");
+// namespace Animals {
+//     export abstract class Animal {
+//         protected name: string;
+//         constructor(name: string) {
+//             this.name = name;
+//         }
+//         abstract say(): void;
+//     }
+// }
+// namespace Animals {
+//     export class Tiger extends Animals.Animal {
+//         private sound: string;
+//         constructor(name: string, sound: string) {
+//             super(name);
+//             this.sound = sound;
+//         }
+//         say(): void {
+//             Utils.log(`${this.name} - ${this.sound},`, "blue", "44px");
+//         }
+//     }
+// }
+// const tiger = new Animals.Tiger("Sherxon", "RRRR");
+// console.log(tiger);
+// tiger.say();
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////
+////generic type
+type A<T> = T; //onasi yani o'zgaruvchan onasi
+type B = A<string>; // B = string
+type C = A<number>; // C = number
+type D = A<boolean>; // D = boolean
+type E = A<"TypeScript">; // E = 'TypeScript'
+let arr1: number[] = [1, 2, 3];
+let arr2: Array<number> = [1, 2, 3]; //buham aslida genericni boshqacha sintaksisi
+let arr3: Array<string> = ["a", "b", "c"]; //buham aslida genericni boshqacha sintaksisi
+type MyArray<T> = T[];//generic arrayda ishlatish
+const arr4: MyArray<boolean> = [true, false]
+const arr5: MyArray<boolean | number> = [true, false, 12]
+function echo<T>(x: T): T{
+    return x;
 }
-class Student extends Person implements IStudent {
-    _group: string = "";
-    _course: number = 0;
-    constructor(name: string, age: number, group: string, course: number) {
-        super(name, age);
-        this._group = group;
-        this._course = course;
-    }
-        info(): string {
-        return `
-        Ism: ${this._name}
-        Yosh: ${this._age}
-        Gruh: ${this._group}
-        Kurs: ${this._course}`
-    }
-}
-const nur2: IStudent = new Student("Nur-2, bu Person classidan vorislangan Student classi student classi IStudent interfacedan vorislangan IStudent interface esa IPersonn interfacedan vorislangan ", 36, "123-gruh", 4);
-console.log(nur2);console.log(nur2.seyHello());console.log(nur2.info());
+const result = echo(12)//type echo function = 12
 
+12cgi dars 6:50chi minutda qoldi
 
-
-
-// tsc --watch
+//// tsc --watch
