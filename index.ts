@@ -807,6 +807,8 @@
 //     _age?: number; // ? so'roq belgisi bu ageni ishlatsaham ishlatmasaham bo'ladi lekin qolganini BU INTERFACE CHAQIRILGAN CLASSDA ISHLATISH SHART BO'LMASA HATO CHIQADI
 //     seyHello(): string;
 //     // seyHello: () => string;//Interface ichida function metodlardaham array function ishlatish mumkun
+//     ///// new(name: string, age: number):void//interfacelarda constructorham yozsa bo'ladi bu holatda bu conctructor ishlatilmadi
+
 // }
 // class Persons implements IPerson {
 //     //implements kalit so'zi bilan classga interfaceni chaqirsa bo'ladi//ENDI Personsga IPersondan keladigan qiymatlarni hammasi kelishi shart tsni maqsadi Persons classi ishlaganda nimadur qolib ketmasligi yani hato chiqmasli uchun hamma qiymatlar kelishi shart
@@ -1137,7 +1139,6 @@
 //     }
 // }
 // const nur: Person = new Person("Nur", 35);
-
 // const nur2 = new Student("Nur-2,  ", 36, "123-gruh", 4);
 // console.log(nur);
 // console.log(nur2);
@@ -1413,23 +1414,121 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////
-////generic type
-type A<T> = T; //onasi yani o'zgaruvchan onasi
-type B = A<string>; // B = string
-type C = A<number>; // C = number
-type D = A<boolean>; // D = boolean
-type E = A<"TypeScript">; // E = 'TypeScript'
-let arr1: number[] = [1, 2, 3];
-let arr2: Array<number> = [1, 2, 3]; //buham aslida genericni boshqacha sintaksisi
-let arr3: Array<string> = ["a", "b", "c"]; //buham aslida genericni boshqacha sintaksisi
-type MyArray<T> = T[];//generic arrayda ishlatish
-const arr4: MyArray<boolean> = [true, false]
-const arr5: MyArray<boolean | number> = [true, false, 12]
-function echo<T>(x: T): T{
-    return x;
-}
-const result = echo(12)//type echo function = 12
+////generic type yani type kalit so'zi bilan birorta type yo'q yani belgilanmagan o'zgaruvchi ochib shu type yo'q o'zgaruvchini boshqa o'zgaruvchiga chaqirib type berish shu <T> bilan yoziladi
+// type A<T> = T; //onasi yani o'zgaruvchan onasi A // yani bu T aslida type bo'ladi bu joyga <> hohlagan narsani yozish mumkun hohlagancha nom berish mumkun lekin bo'sh bo'masa bo'ldi T deyilishini sababi type ekanligi yani bo'sh type ekanligi bun bo'sh typega ega T o'zgaruvchiga hohlagancha boshqa o'zgaruvchiga chaqirib hohlagancha qiymat berish mumkun
+// type B = A<string>; // B = string
+// type C = A<number>; // C = number
+// type D = A<boolean>; // D = boolean
+// type E = A<"TypeScript">; // E = 'TypeScript'
+// let arr1: number[] = [1, 2, 3];
+// let arr2: Array<number> = [1, 2, 3]; //buham aslida genericni boshqacha sintaksisi
+// let arr3: Array<string> = ["a", "b", "c"]; //buham aslida genericni boshqacha sintaksisi
+// type MyArray<T> = T[]; //generic arrayda ishlatish yani bu holatda arrayga ega bo'sh type o'zgaruvchi endi bu MyArrayni pastda chaqirib hohlagan qiymat berilssaham massiv ichida berilsa bo'ldi
+// //generic>>>MyArray <T> ==== T[]>>>T[]
+// const arr4: MyArray<boolean> = [true, false]; //yuqoridagi MyArray generic type default bo'sh massiv faqat boolean qabul qiladi boshqa narsaga esa hato qaytaradi
+// const arr5: MyArray<boolean | number> = [true, false, 12]; //arr5 MyArray ona typedan generic qilingan va bosh qiymatiga boolean yoki number bo'lish aytilgan
+///////////////////////////////////////////
+// function echo<T>(x: T): T {//ona generic function
+//     //generic function
+//     return x;
+// }
+// const result = echo(12); //type echo function = 12
+// const result = echo("salom"); //type echo function = "salom"
+// const result:string = echo("salom");
+// const result: number = echo(12);
+///////////////////////////////////////////
+// const echo = <T>(x: T): T => {
+//     return x;
+// };
+// const result =  echo ("ts")
+// const result:string =  echo ("ts")
+// const result =  echo<string> ("ts")// const result:string =  echo ("ts")sintaksiz o'zgardi holos
+// const result:number =  echo (12)
+// const result = echo<number>(12);
+///////////////////////////////////////////
+// const echo1 = <T>(x: T): T => {
+//     return x;
+// };
 
-12cgi dars 6:50chi minutda qoldi
+// const echo2: <T>(x: T) => T = <T>(x: T): T => {
+//     return x;
+// };
+/////////////
+/////////////
+// function identity<Type>(arg: Type): Type {
+//     return arg;
+// }
+// // let output = identity<string>("myString");//sintaksiz-1 string ekanligi shaxsan aytildi
+// // let output = identity("myString");//sintaksiz-2 ""buni tanib o'zi string typeni aftamatik berdi
+// let output = identity(1); //number typeni aftamatik berdi// chunki identityda type berilgan yani anyga o'hshagan lekin anydan farqi bor farqi shuki ohiridaham any qaytaradi yani nimaligi nomalum bo'lib qoladi typeda esa type beriladi va shu typega qarab nima keletganinianiq bilish mumkun
+//////////////classlarda generic typelardan foydalanish
+// class List<T> {
+//     elements: T[] = [];
+//     add(element: T): void {
+//         this.elements.push(element);
+//     }
+// }
+// let lists = new List<number>();
+// lists.add(12);
+// lists.add(32);
+// console.log(lists);
+// let lists1 = new List <boolean | undefined>()
+// lists1.add(undefined)
+// lists1.add(true)
+// lists1.add(false,true)//hato sabab??? booleanda ikkita qiymat borku lekin ikklasiniham bitta joyda ishlatim bo'lmaydi chunki booleanda yoki false yoki tru bo'lishi kerak nimadur bir vaqtni o'zida ham hato ham to'g'ri bo'la olmaydi
+/////////////
+// class List<T> {
+//     elements: T[] = [];
+//     add(element: T): void {
+//         this.elements.push(element);
+//     }
+// }
+// let lists = new List<number | string>();
+// lists.add(12);
+// lists.add("32");
+// console.log(lists);
+/////////////
+
+//////
+//////////////////////////interfacelarda generic typelardan foydalanish
+// interface IList<T> {
+//     elements: T[];
+//     add(element: T): void;
+// }
+// class List implements IList<string> {//bu holatda IList nomli interface ochildi va typiga genericsan deyildi ichida ikkita qiymat bularham generic type deyildi (lekin aslida hohlagan tyypeni berish mumkun faqay classga chaqirilganda shu type berilsa bo'ldi) va bu IList interface implements kalit so'zi bilan List nomli classga chaqirildi va IListga string typeda ekanligi va qiymatlariga typelar  berildi elements typega array ichida string bo'lasan deyildi add metodiga esa string type element nomli parametr ochib elementsga yani string qabul qiladigan bo'sh arrayga push yani jo'natildi push stringni metodi elelemts va element string typega oid bo'lgani uchun push ishlaydi endi addni bitt parametri bor va add chaqirilganda parametriga faqat string format qabul qiladi ikkinchi parametri yo'q shu sabab agar ikkinchi parametriga string yozilgandaham hato qaytaradi
+//     elements: string[] = [];
+//     add(element: string): void {
+//         this.elements.push(element);
+//     }
+// } //IList interface bu holatda type  <> T yani generic yani umumiy yani hamma narsa bo'lishi mumkun yani generic typega chaqirilganda type berilishi kerak masalan interfacedami typedami classdai farqi yo'q har qanday joyda generic type berib uni chaqirib ishlatganda taypini kiritish kerak generik yani umumiy deganda hamma typelar nazarda tutilgan lekin anydan farqi bor farqi shuki any albatta, umumiy bo'lsa-da, bu funktsiya turi uchun har qanday va barcha turlarni qabul qilishiga olib keladi  biz aslida funktsiya qaytganida bu tur nima bo'lganligi haqidagi ma'lumotni yo'qotamiz. Agar biz funcsiya ichida yoki classda generic typedan kelgan qiymatga number typeni kiritadigan bo'lsak endi bu funksiya yoki class aniq number qaytaradi anyda esa faqat any qaytaradi masalan 12 raqami kelsa bu stringmo numbermi bilmaslik mumkun shu sabab generic bilan ishlash yahshiroq
+// let list = new List();
+// list.add("strig-1");
+// list.add("strigs-2");
+// // list.add("strigs-2", "string-3");//hato chunki addni ikkinchi parametri yo'q faqat bitt aparametri bor yani element parametri
+// // list.add(56)//hato chunki add metodga class ichida elementni string typeda ekanligi aytilgan
+// console.log(list);
+/////////////////////////////////////
+// interface IList<T> {
+//     elements: T[];
+//     add(element: T): void;
+// }
+// type ListType = string | number | boolean;// bu IList interfacega typelarni dynamic berish yani endi IList interfaceni typelari string yoki number yoki boolean bo'lishi mumkun bu uchu IList interface chaqirilgan classda IListni type ListType qilib qo'yilsas bo'ldi
+// class List implements IList<ListType> {
+//     elements: ListType[] = [];// add metodni parametidagi element qiymatiga string number boolean typlariham yozilsa bo'ladi va bu typelar push metodi sabab string qiymatli elements bo'sh arrayga tushadi endi bu arrayham shu uchta typelarniham qabul qilaoladi chunki array objectida bu typelarni qabul qilish mumkun 
+//     add(element: ListType): void {
+//         this.elements.push(element);
+//     }
+// } 
+// let list = new List();
+// list.add("strig-1");
+// list.add("strigs-2");
+// list.add(35);
+// list.add(34);
+// list.add(false)
+// list.add(true)
+// //endi bu List classdan object yasalganda add metodi chaqirilganda faqat bitta parametr qabul qiladi uch hil typelar bilan number yoki string yoki boolean
+// console.log(list);
+////////////////////////////////////////////////////////////////////////////////////////////
+14chi darsda qoldi
 
 //// tsc --watch
