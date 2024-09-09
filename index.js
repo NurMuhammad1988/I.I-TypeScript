@@ -1421,11 +1421,11 @@
 // }
 // type ListType = string | number | boolean;// bu IList interfacega typelarni dynamic berish yani endi IList interfaceni typelari string yoki number yoki boolean bo'lishi mumkun bu uchu IList interface chaqirilgan classda IListni type ListType qilib qo'yilsas bo'ldi
 // class List implements IList<ListType> {
-//     elements: ListType[] = [];// add metodni parametidagi element qiymatiga string number boolean typlariham yozilsa bo'ladi va bu typelar push metodi sabab string qiymatli elements bo'sh arrayga tushadi endi bu arrayham shu uchta typelarniham qabul qilaoladi chunki array objectida bu typelarni qabul qilish mumkun 
+//     elements: ListType[] = [];// add metodni parametidagi element qiymatiga string number boolean typlariham yozilsa bo'ladi va bu typelar push metodi sabab string qiymatli elements bo'sh arrayga tushadi endi bu arrayham shu uchta typelarniham qabul qilaoladi chunki array objectida bu typelarni qabul qilish mumkun
 //     add(element: ListType): void {
 //         this.elements.push(element);
 //     }
-// } 
+// }
 // let list = new List();
 // list.add("strig-1");
 // list.add("strigs-2");
@@ -1435,10 +1435,123 @@
 // list.add(true)
 // //endi bu List classdan object yasalganda add metodi chaqirilganda faqat bitta parametr qabul qiladi uch hil typelar bilan number yoki string yoki boolean
 // console.log(list);
-////////////////////////////////////////////////////////////////////////////////////////////
-14;
-chi;
-darsda;
-qoldi;
+////////////////
+////generic typlardan vorislik olish
+// type A<T> = T
+// type B = A<string>
+// type C = A<"TS">
+// type d = A<number>
+////////////////
+// type A<T extends string> = T; //yani typeni ichida genericdan voris olish = T; bu tengdan keyingi T qaytarib beriladigan narsa yani A nomli genericimizdan voris olsa bo'ladi va stringni = T; ichida qaytarib beradi = T; esa pastda type B ga vorislnaib o'tdi
+// type B = A<string>;
+// type C = A<"JS">;//bu C gs A generic chaqirildi va string berildi chunki A genericda string bor
+// type D = A<number>//bu hato chunki A dan vorislanishda string vorislanadi numbermas Ada streing berib qo'yilgan lekin hato bo'lsaham D ga baribir number type o'tib qoldi shu uchun A genericga shart qo'yish kerak masalan bu A generigdan vorislangan typelar faqat string bo'lsa A genericga o'zlashtir yani voris ber bo'lmasa berma degan shart qo'yish kerak
+/////////////////////
+// type A<T> = T extends string ? string : never; //shart dhu if else boshqa sintaksiz yani agar A genericdan voris olinganda string bo'lsa ? yani string olinishi rost bo'lsa string qaytar agar false bo'lsa : never qaytar never bu hech narsa
+// type B = A<string>; //string
+// type C = A<"JS">; //string
+// type D = A<number>; //never
+// ///////////////////////////////////////////////////////////////
+// function getName<T extends { name: string }>(person: T): void {
+//     //bu holatda getName nomli funksiya ichida generic ochilib voris olsin deyildi yani object ichida name qiymatli string typli voris va parametriga person berildi va bu person T dan yani genericdan voris oladi va logda person.name qiymati chiqsin deyildi yani person bu holatda funksiyani parametri genericdan name nomli string type parametr qabul qiladigan T ni yani typeni voris qilib olgan shunda logda personni yani funksiyani parametriga name yani T chaqirildi shunda getName funksiya chaiqirlganda parametriga endi faqat object ichida name nomli string qabul qiladi
+//     console.log(person.name);
+// }
+// getName({ name: "Nur" });
+// getName({ name: "Nur-2", age: 23 });///?????? nima bu a nima bu nimasan  san a kimsan san nimasan?????????name qiymatni ichida keldi lekin logda yo'q hatoham yo'q loggda 23ni string typedaham bermadi nima bu a nimasan san ??????????????
+// console.dir(getName ({ name: "Nur-3", age: 23 }));//name topildi lekin age undefined yani topilmadi demak yozilishini o'zi hato lekin ts hato qaytarmadi ???????????????????????????
+// getName({ name: 12 });//hato chunki bu genericni objecti hissoblangan namega string bo'lish aytilgan
+///////////////////////////////////////////////////////////////
+//function ichida interfacelardan foydalanish
+// interface IName {
+//     name: string;
+// }
+// function getName<T extends IName>(person: T): void {//endi interface INamedan voris oladi
+//     console.log(person.name);
+// }
+// getName({ name: "Nur"});
+// getName({ name: 12 });//hato chunki number typeham age qiymatiham interfacedaham getNamedaham yo'q
+////////////////////////////////////////////////////////////////
+// interface IName {
+//     name: string;
+//     age: number
+// }
+// function getName<T extends IName>(person: T): void {//endi interface INamedan voris oladi
+//     console.log(person.name, person.age);
+// }
+// getName({ name: "Nur", age:23});//endi interface INamedaham age bor va bu IName getNamega voris qilingan endi getNameda ikkita name va age qiymatlari Inamedan kelepti yani generic bo'lib kelepti va logda person parametrni ikkala qiymatiham chaqirilepti endi nimasan san savoliga javob olindi
+// // getName({ age: 12 });
+//////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////14-chi dars ichidagi tsdagi keyof yahshi tushunilmadi
+// interface Inter {
+//     a: string;
+//     b: boolean;
+//     c: number;
+// }
+// type InterKeys = keyof Inter; //interni keylari yani = a | b | c
+// function getProperty1<ObjType, ObjKey extends keyof ObjType>( //agar loyihada boshqa keyof bo'lsa bu funskiya qaysi keyofni olishni qayerdan biladi????????????
+//     obj: ObjType,
+//     key: ObjKey
+// ) {
+//     return obj[key];
+// }
+// const result = getProperty1(
+//     { name: "Nur", age: 34, lastName: "Yorov" },"lastName" //bu lastName keyi hissoblanadi yani getproperty1 nomli funksiyani parametrida yasalgan objectni lastName qiymati keyi yani nomi orqali olindi faqat bitta shu lastNameni olepti objectni to'liq omeydimi masalan hamm akeylarini qanday oladi????
+// );
+// console.log(result); //logda Yorov???
+//////////////////////////////
+// interface Person {
+//     name: string;
+//     age: number;
+//   }
+//   // `keyof Person` here creates a union type of "name" and "age", other strings will not be allowed
+//   function printPersonProperty(person: Person, property: keyof Person) {
+//     console.log(`Printing person property ${property}: "${person[property]}"`);
+//   }
+//   let person = {
+//     name: "Max",
+//     age: 27
+//   };
+//   printPersonProperty(person, "name"); // Printing person property name: "Max"
+//   printPersonProperty(person, "age"); // Printing person property age: "27"
+///////////////////////////////////
+// interface Person {
+//     name: string;
+//     age: number;
+//     gender: string;
+// }
+// const person: Person = {
+//     name: "John",
+//     age: 25,
+//     gender: "male",
+// };
+// function getProperty<T, K extends keyof T>(obj: T, key: K) {
+//     return obj[key];
+// }
+// console.log(getProperty(person, "name")); // "John"
+// console.log(getProperty(person, "age")); // 25
+// console.log(getProperty(person, "gender")); // "male"
+////////////////////////////
+// interface Inter {
+//     a: string;
+//     c: number;
+// }
+// type InterKeys = keyof Inter;
+// function getProperty1<ObjType, ObjKey extends keyof ObjType>(
+//     obj: ObjType,
+//     key: ObjKey
+// )
+//  { return obj[key];}
+// // const result = getProperty1(
+// //     { name: "Nur", age: 34, lastName: "Yorov" },"lastName" //"age" qilsa numberda 32 chiqadi "name" qilsa stringda Nur chiqadi yani bu object qiymatni
+// // );
+// const result = getProperty1(
+//     { name: "Nur", age: 34, lastName: "Yorov", isMarried: true },"isMarried" //endi keyda isMarried bor lekin bu boolean qiymat boolean qiymat esa interface Interda yo'q????? lekin yasalgan object ichida true bor tsga o'shamgan function bo'ldi
+// );
+// console.log(result); //logda Yorov??? chunki objectdan keyin key bor objectni qiymatlarini keyi orqali chaqirish>>{return obj[key]} endi "lastName" ichiga yasalgan objectni qaysi qiymati keyi bilan chaqirilsa logda shu chiqadi
+///////////////////////////////////////////////14-chi dars ichidagi tsdagi keyof yahshi tushunilmadi
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////infer kalit so'zi doim shart operatorlari bilan birga ishlaydi
+let arr = [1, "str", true];
+// 15-chi dars 3 minutda qoldi  14 va 15 chi darslarni boshidan boshlab ulab qilish tafsiya qilinadi
 //// tsc --watch
 //# sourceMappingURL=index.js.map
