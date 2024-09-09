@@ -1650,9 +1650,9 @@
 ///////////////////////////////////////////////14-chi dars ichidagi tsdagi keyof yahshi tushunilmadi
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////infer kalit so'zi doim shart operatorlari bilan birga ishlaydi
-let arr = [1, "str", true];
-type A<T> = T extends (infer U)[] ? U : never;
-type B = typeof arr;
-type C = A<B>;
-// 15-chi dars 3 minutda qoldi  14 va 15 chi darslarni boshidan boshlab ulab qilish tafsiya qilinadi
+let arr = [1, "str", true];//
+type A<T> = T extends (infer U)[] ? U : never;//
+type B = typeof arr;//
+type C = A<B>;//
+// 15-chi dars 3 minutda qoldi  14 va 15 chi darslarni boshidan boshlab ulab qilish tafsiya qilinadi 
 //// tsc --watch
